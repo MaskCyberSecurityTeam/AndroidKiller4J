@@ -10,6 +10,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 校验当前TaskView中选中的Tab页是否为{@link com.funnysec.richardtang.androidkiller4j.view.WorkbenchView}类型
+ *
+ * @author RichardTang
+ */
 @Aspect
 @Component
 public class AssertWorkbenchTabAspect {
@@ -17,6 +22,13 @@ public class AssertWorkbenchTabAspect {
     @Autowired
     private TaskView taskView;
 
+    /**
+     * 拦截函数上带有AssertWorkbenchTabAspect注解的函数
+     *
+     * @param proceedingJoinPoint
+     * @return
+     * @throws Throwable
+     */
     @Around(value = "@annotation(com.funnysec.richardtang.androidkiller4j.annotation.AssertWorkbenchTab)")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         try {

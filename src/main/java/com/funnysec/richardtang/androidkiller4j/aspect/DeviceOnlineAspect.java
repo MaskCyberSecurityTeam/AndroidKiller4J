@@ -23,7 +23,7 @@ public class DeviceOnlineAspect {
     private AndroidDeviceManager androidDeviceManager;
 
     /**
-     * 这里需要阻断函数继续往下执行必须使用@Around
+     * 拦截函数上带有DeviceOnlineAspect注解的函数
      *
      * @param proceedingJoinPoint 用来控制函数是否往下执行
      * @return {@link ProceedingJoinPoint}
