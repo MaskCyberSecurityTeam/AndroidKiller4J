@@ -2,6 +2,7 @@ package com.funnysec.richardtang.androidkiller4j.core.device;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.android.ddmlib.IDevice;
+import com.android.ddmlib.logcat.LogCatFilter;
 import com.android.ddmlib.logcat.LogCatListener;
 import com.android.ddmlib.logcat.LogCatMessage;
 import com.android.ddmlib.logcat.LogCatReceiverTask;
@@ -15,6 +16,8 @@ public class DeviceLogReceiverManager {
     private List data;
 
     private LogCatReceiverTask logCatReceiverTask;
+
+    private LogCatFilter logCatFilter;
 
     private final DeviceLogListener deviceLogListener = new DeviceLogListener();
 

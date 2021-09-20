@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class ToolkitView extends BaseView2<AccordionTabPane> {
+public class ToolkitView extends BaseView<AccordionTabPane> {
 
     // Tab 系统、安卓、设备
     private Tab systemTab;

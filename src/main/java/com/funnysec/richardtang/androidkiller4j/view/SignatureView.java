@@ -3,16 +3,11 @@ package com.funnysec.richardtang.androidkiller4j.view;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.watch.SimpleWatcher;
 import cn.hutool.core.io.watch.WatchMonitor;
-import cn.hutool.core.io.watch.Watcher;
-import com.funnysec.richardtang.androidkiller4j.config.ResourceImageConfig;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.event.SignatureViewEvent;
 import com.funnysec.richardtang.androidkiller4j.pojo.TabUserData;
-import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
-import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -21,7 +16,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import org.controlsfx.control.PrefixSelectionComboBox;
-import org.controlsfx.control.PropertySheet;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
@@ -34,7 +28,7 @@ import java.nio.file.WatchEvent;
 
 @Data
 @Component
-public class SignatureView extends BaseView2<Tab> {
+public class SignatureView extends BaseView<Tab> {
 
     private SplitPane splitPane;
     private GridPane  leftGridPane;

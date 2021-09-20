@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class ControlView extends BaseView2<TabPane> {
+public class ControlView extends BaseView<TabPane> {
 
     // 日志输出组件
     private static ConsoleTextArea runLogTextArea;

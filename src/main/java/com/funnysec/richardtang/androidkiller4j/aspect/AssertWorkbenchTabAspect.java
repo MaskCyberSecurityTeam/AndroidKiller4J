@@ -25,9 +25,9 @@ public class AssertWorkbenchTabAspect {
     /**
      * 拦截函数上带有AssertWorkbenchTabAspect注解的函数
      *
-     * @param proceedingJoinPoint
-     * @return
-     * @throws Throwable
+     * @param proceedingJoinPoint 用来控制函数是否往下执行
+     * @return {@link ProceedingJoinPoint}
+     * @throws Throwable 调用proceed时抛出的异常
      */
     @Around(value = "@annotation(com.funnysec.richardtang.androidkiller4j.annotation.AssertWorkbenchTab)")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {

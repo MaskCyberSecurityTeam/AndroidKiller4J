@@ -1,16 +1,11 @@
 package com.funnysec.richardtang.androidkiller4j.view.device.log;
 
 import com.android.ddmlib.logcat.LogCatMessage;
-import com.funnysec.richardtang.androidkiller4j.config.ResourceImageConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.event.device.log.DeviceLogViewEvent;
-import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
-import com.funnysec.richardtang.androidkiller4j.view.BaseView2;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import com.funnysec.richardtang.androidkiller4j.view.BaseView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class DeviceLogView extends BaseView2<Tab> {
+public class DeviceLogView extends BaseView<Tab> {
 
     // 数据表格，承载LogCat日志信息的表格。
     private TableView<LogCatMessage>           tableView;

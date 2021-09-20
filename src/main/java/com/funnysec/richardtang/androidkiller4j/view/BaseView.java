@@ -1,22 +1,44 @@
 package com.funnysec.richardtang.androidkiller4j.view;
 
-import com.funnysec.richardtang.androidkiller4j.pojo.Apk;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 /**
- * View基类，规定所有View类要有哪些基础函数。 每个子类View都需要自己给view赋值，来初始化view的值，不然会出现空指针。
- * JavaFx中已Pane来进行布局，那么每个子View就需要指定一个根的Pane来作为当前的布局。
+ * 所有View的基类，规定所有View类要有哪些基础函数。
+ * 所有继承的子类都需要指定一个类型P，来作为根Pane，这个P类型实例对象由父构造函数进行创建。
  *
- * @param <P> 当前View对外暴露的根Pane
+ * @param <P> 当前View中的根Pane类型
  * @author RichardTang
  */
 public abstract class BaseView<P> implements InitializingBean {
 
-    // 这里的View其实就是Pane
-    protected P view;
+    // 根Pane类型
+    private P view;
 
-    public P getView() {
+    /**
+     * 构造函数中通过泛型反射，由父类统一创建P的具体类型，并赋值给view成员属性。
+     */
+    public BaseView() {
+        try {
+            Class             clazz             = this.getClass();
+            Type              type              = clazz.getGenericSuperclass();
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Class             viewClass         = (Class) parameterizedType.getActualTypeArguments()[0];
+            view = (P) viewClass.getConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取根Pane对象
+     *
+     * @return 根Pane
+     */
+    public P getRootPane() {
         return view;
     }
 
@@ -48,7 +70,7 @@ public abstract class BaseView<P> implements InitializingBean {
     /**
      * Spring容器中的Bean初始化完毕后调用该函数，该函数中依次调用UI、布局、事件的初始化函数。
      * <b>注意: 这个初始化函数只有将创建权交给Spring的类，才会调用该函数。就是加了{@link Component}的类</b>
-     * <b>注意2: 如果未加{@link Component}则会通过构造函数的方式进行调用，注意加载的顺序问题。</b>
+     * <b>注意2: 如果未加{@link Component}则需要手动通过构造函数的方式进行调用，注意加载的顺序问题。</b>
      */
     @Override
     public void afterPropertiesSet() {

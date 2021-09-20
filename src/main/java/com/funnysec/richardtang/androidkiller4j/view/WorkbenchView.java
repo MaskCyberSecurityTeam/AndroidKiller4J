@@ -27,7 +27,7 @@ import java.io.File;
  * @author RichardTang
  */
 @Data
-public class WorkbenchView extends BaseView2<Tab> {
+public class WorkbenchView extends BaseView<Tab> {
 
     private Apk apk;
 
@@ -92,7 +92,7 @@ public class WorkbenchView extends BaseView2<Tab> {
     /**
      * 信息选项卡
      */
-    private class InfoTabView extends BaseView2<Tab> {
+    private class InfoTabView extends BaseView<Tab> {
 
         // App信息和Icon图标
         private ImageView apkIcon;
@@ -188,7 +188,7 @@ public class WorkbenchView extends BaseView2<Tab> {
     /**
      * 管理选项卡
      */
-    private class ManagerTabView extends BaseView2<Tab> {
+    private class ManagerTabView extends BaseView<Tab> {
 
         // apk系统文件树
         private SystemFileTreeView apkDirTreeView;
@@ -236,7 +236,7 @@ public class WorkbenchView extends BaseView2<Tab> {
     /**
      * 搜索选项卡
      */
-    private class SearchTabView extends BaseView2<Tab> {
+    private class SearchTabView extends BaseView<Tab> {
 
         SearchTabView() {
             afterPropertiesSet();

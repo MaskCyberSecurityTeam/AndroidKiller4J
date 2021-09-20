@@ -3,7 +3,7 @@ package com.funnysec.richardtang.androidkiller4j.view.device.log;
 import com.android.ddmlib.Log;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.event.device.log.DeviceLogFilterViewEvent;
-import com.funnysec.richardtang.androidkiller4j.view.BaseView2;
+import com.funnysec.richardtang.androidkiller4j.view.BaseView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class DeviceLogFilterView extends BaseView2<HBox> {
+public class DeviceLogFilterView extends BaseView<HBox> {
 
     private Label                   pidLabel;
     private Label                   tagLabel;

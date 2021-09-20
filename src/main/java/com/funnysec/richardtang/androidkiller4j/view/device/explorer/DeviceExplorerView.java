@@ -7,7 +7,7 @@ import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.constant.ProtocolString;
 import com.funnysec.richardtang.androidkiller4j.pojo.TabUserData;
 import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
-import com.funnysec.richardtang.androidkiller4j.view.BaseView2;
+import com.funnysec.richardtang.androidkiller4j.view.BaseView;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.Event;
@@ -18,7 +18,7 @@ import lombok.Data;
 import java.io.File;
 
 @Data
-public class DeviceExplorerView extends BaseView2<Tab> {
+public class DeviceExplorerView extends BaseView<Tab> {
 
     private IDevice iDevice;
 

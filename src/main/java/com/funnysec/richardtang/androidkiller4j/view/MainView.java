@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class MainView extends BaseView2<GadgetSplitPane> {
+public class MainView extends BaseView<GadgetSplitPane> {
 
     @Autowired
     private TaskView taskView;

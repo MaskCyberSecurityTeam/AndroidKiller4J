@@ -26,7 +26,7 @@ import java.io.File;
  */
 @Data
 @Component
-public class TaskView extends BaseView2<TabPane> {
+public class TaskView extends BaseView<TabPane> {
 
     // 任务列表
     private Tab taskTab;

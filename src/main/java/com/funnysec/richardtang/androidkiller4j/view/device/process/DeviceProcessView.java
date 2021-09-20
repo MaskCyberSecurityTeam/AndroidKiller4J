@@ -1,11 +1,9 @@
 package com.funnysec.richardtang.androidkiller4j.view.device.process;
 
-import com.funnysec.richardtang.androidkiller4j.config.ResourceImageConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.event.device.process.DeviceProcessViewEvent;
 import com.funnysec.richardtang.androidkiller4j.core.device.process.ProcessMessage;
-import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
-import com.funnysec.richardtang.androidkiller4j.view.BaseView2;
+import com.funnysec.richardtang.androidkiller4j.view.BaseView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class DeviceProcessView extends BaseView2<Tab> {
+public class DeviceProcessView extends BaseView<Tab> {
 
     private Button changeButton;
 
