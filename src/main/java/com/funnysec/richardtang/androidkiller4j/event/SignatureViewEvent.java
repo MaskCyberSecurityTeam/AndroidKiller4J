@@ -166,12 +166,11 @@ public class SignatureViewEvent {
         apkSignatureTask.setOnSucceeded(event -> {
             if (FileUtil.exist(outputPath)) {
                 FxUtil.alert("提示信息", "签名成功");
-                if (openDir) {
-                    DesktopUtil.open(new File(outputPath));
-                }
-
                 if (delSourceFile) {
                     FileUtil.del(signApkFile);
+                }
+                if (openDir) {
+                    DesktopUtil.open(new File(outputPath));
                 }
             } else {
                 FxUtil.alert("提示信息", "签名失败");

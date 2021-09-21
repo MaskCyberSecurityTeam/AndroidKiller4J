@@ -2,6 +2,7 @@ package com.funnysec.richardtang.androidkiller4j.event;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.android.ddmlib.IDevice;
 import com.funnysec.richardtang.androidkiller4j.annotation.AssertWorkbenchTab;
 import com.funnysec.richardtang.androidkiller4j.annotation.AssertDeviceOnline;
@@ -9,9 +10,9 @@ import com.funnysec.richardtang.androidkiller4j.annotation.AssertTab;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
-import com.funnysec.richardtang.androidkiller4j.core.Pkid;
 import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager;
 import com.funnysec.richardtang.androidkiller4j.pojo.Apk;
+import com.funnysec.richardtang.androidkiller4j.task.ApkInspectShellTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkSignatureTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolCompileTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolDecompileTask;
@@ -124,10 +125,17 @@ public class ToolkitViewEvent {
         FxConstant.FILE_CHOOSER.setTitle("选择需要查壳的APK");
         FxConstant.FILE_CHOOSER.getExtensionFilters().add(FxConstant.APK_EXT_FILETER);
         File apkFile = FxConstant.FILE_CHOOSER.showOpenDialog(toolkitView.getRootPane().getScene().getWindow());
-        if (apkFile != null) {
-            String tip = Pkid.check(apkFile);
-            FxUtil.alert("提示信息", tip);
+
+        // 未选中文件
+        if (ObjectUtil.isNull(apkFile)) {
+            return;
         }
+
+        ApkInspectShellTask apkInspectShellTask = new ApkInspectShellTask(apkFile);
+        apkInspectShellTask.setOnSucceeded(e -> {
+            FxUtil.alert("提示信息", (String) e.getSource().getValue());
+        });
+        ThreadUtil.execAsync(apkInspectShellTask);
     }
 
     /**

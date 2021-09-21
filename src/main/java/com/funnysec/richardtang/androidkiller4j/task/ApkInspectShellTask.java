@@ -1,4 +1,6 @@
-package com.funnysec.richardtang.androidkiller4j.core;
+package com.funnysec.richardtang.androidkiller4j.task;
+
+import javafx.concurrent.Task;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -11,13 +13,16 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * APP查壳工具
+ * APK查壳任务
  *
  * @author RichardTang
  */
-public class Pkid {
+public class ApkInspectShellTask extends Task<String> {
 
-    public static Map<String, String> markMap = new HashMap<>();
+    // 需要进行查壳的Apk文件对象
+    private File apkFile;
+
+    private final static Map<String, String> markMap = new HashMap<>();
 
     // 壳规则 TODO 后边提取到配置文件
     static {
@@ -64,17 +69,21 @@ public class Pkid {
         markMap.put("librsprotect.so", "瑞星");
     }
 
+    public ApkInspectShellTask(File apkFile) {
+        this.apkFile = apkFile;
+    }
+
     /**
      * 读取压缩文件内的文件路径
      *
      * @param file 压缩文件格式的文件
      * @return 该压缩文件内的文件路径
      */
-    public static List<String> readZipFiles(File file) {
+    private List<String> readZipFiles(File file) {
         List<String> result = new ArrayList<>();
         try {
             ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(new FileInputStream(file)));
-            ZipEntry zipEntry;
+            ZipEntry       zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 if (zipEntry.isDirectory()) {
                     continue;
@@ -96,10 +105,9 @@ public class Pkid {
     /**
      * 对指定APK文件进行查壳
      *
-     * @param apkFile 需要查壳的apk文件
      * @return 壳所有厂商的名称
      */
-    public static String check(File apkFile) {
+    public String check() {
         // 判断文件后缀
         if (apkFile == null || !apkFile.getName().endsWith(".apk")) {
             return "此apk未采用加固或为未知加固厂商!";
@@ -112,7 +120,12 @@ public class Pkid {
         }
 
         // 根据文件名在markMap中进行查找
-        String key = filePath.stream().filter(i -> markMap.containsKey(i)).findFirst().orElse(null);
+        String key = filePath.stream().filter(markMap::containsKey).findFirst().orElse(null);
         return key != null ? markMap.get(key) : "此apk未采用加固或为未知加固厂商！";
+    }
+
+    @Override
+    protected String call() throws Exception {
+        return check();
     }
 }
