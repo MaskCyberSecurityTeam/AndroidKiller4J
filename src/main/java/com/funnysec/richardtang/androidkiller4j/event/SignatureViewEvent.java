@@ -3,10 +3,11 @@ package com.funnysec.richardtang.androidkiller4j.event;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.swing.DesktopUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
-import com.funnysec.richardtang.androidkiller4j.core.ApkTool;
+import com.funnysec.richardtang.androidkiller4j.task.ApkSignatureTask;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import com.funnysec.richardtang.androidkiller4j.view.SignatureView;
 import com.funnysec.richardtang.androidkiller4j.view.TaskView;
@@ -160,7 +161,9 @@ public class SignatureViewEvent {
         boolean openDir       = signatureView.getOpenDirCheckBox().isSelected();
         boolean delSourceFile = signatureView.getDelSourceCheckBox().isSelected();
 
-        ApkTool.signature(signApkFile.getAbsolutePath(), outputPath + "/sign_" + signApkFile.getName(), keystore, process -> {
+        ApkSignatureTask apkSignatureTask =
+                new ApkSignatureTask(signApkFile.getAbsolutePath(), outputPath + "/sign_" + signApkFile.getName(), keystore);
+        apkSignatureTask.setOnSucceeded(event -> {
             if (FileUtil.exist(outputPath)) {
                 FxUtil.alert("提示信息", "签名成功");
                 if (openDir) {
@@ -174,5 +177,6 @@ public class SignatureViewEvent {
                 FxUtil.alert("提示信息", "签名失败");
             }
         });
+        ThreadUtil.execAsync(apkSignatureTask);
     }
 }
