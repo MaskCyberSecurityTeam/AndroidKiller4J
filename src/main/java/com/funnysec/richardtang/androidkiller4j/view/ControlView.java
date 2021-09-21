@@ -26,8 +26,8 @@ public class ControlView extends BaseView<TabPane> {
         runLogTextArea = new ConsoleTextArea();
 
         // 将java的日志信息重定向到runLogTextArea组件中
-        System.setOut(runLogTextArea.getConsoleTextAreaPrintStream());
-        System.setErr(runLogTextArea.getConsoleTextAreaPrintStream());
+//        System.setOut(runLogTextArea.getConsoleTextAreaPrintStream());
+//        System.setErr(runLogTextArea.getConsoleTextAreaPrintStream());
     }
 
     // 日志Tab

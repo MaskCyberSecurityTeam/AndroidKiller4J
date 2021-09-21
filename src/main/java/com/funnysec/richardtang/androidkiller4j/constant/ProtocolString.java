@@ -6,6 +6,8 @@ package com.funnysec.richardtang.androidkiller4j.constant;
  * http://
  * https://
  * ftp://
+ *
+ * @author RichardTang
  */
 public class ProtocolString {
 

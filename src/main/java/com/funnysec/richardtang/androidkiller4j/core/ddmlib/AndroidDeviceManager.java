@@ -4,6 +4,7 @@ import cn.hutool.core.util.RuntimeUtil;
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.IDevice;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
+import com.funnysec.richardtang.androidkiller4j.listener.AndroidDeviceChangeListener;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class AndroidDeviceManager implements InitializingBean {
     private AndroidDebugBridge bridge;
 
     @Autowired
-    private DeviceListener deviceListener;
+    private AndroidDeviceChangeListener deviceListener;
 
     public AndroidDeviceManager() {
         AndroidDebugBridge.init(false);
@@ -35,11 +36,9 @@ public class AndroidDeviceManager implements InitializingBean {
 
     /**
      * 当前类在Spring初始化完毕后调用
-     *
-     * @throws Exception 继承下来的异常信息
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         AndroidDebugBridge.addDeviceChangeListener(deviceListener);
     }
 

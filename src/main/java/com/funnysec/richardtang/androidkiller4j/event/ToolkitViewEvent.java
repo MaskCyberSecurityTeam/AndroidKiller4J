@@ -4,8 +4,8 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.android.ddmlib.IDevice;
 import com.funnysec.richardtang.androidkiller4j.annotation.AssertWorkbenchTab;
-import com.funnysec.richardtang.androidkiller4j.annotation.DeviceOnline;
-import com.funnysec.richardtang.androidkiller4j.annotation.SelectTab;
+import com.funnysec.richardtang.androidkiller4j.annotation.AssertDeviceOnline;
+import com.funnysec.richardtang.androidkiller4j.annotation.AssertTab;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
@@ -17,9 +17,9 @@ import com.funnysec.richardtang.androidkiller4j.task.ApkToolCompileTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolDecompileTask;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import com.funnysec.richardtang.androidkiller4j.view.*;
-import com.funnysec.richardtang.androidkiller4j.view.device.explorer.DeviceExplorerView;
-import com.funnysec.richardtang.androidkiller4j.view.device.log.DeviceLogView;
-import com.funnysec.richardtang.androidkiller4j.view.device.process.DeviceProcessView;
+import com.funnysec.richardtang.androidkiller4j.view.device.DeviceExplorerView;
+import com.funnysec.richardtang.androidkiller4j.view.device.DeviceLogView;
+import com.funnysec.richardtang.androidkiller4j.view.device.DeviceProcessView;
 import com.kodedu.terminalfx.TerminalBuilder;
 import com.kodedu.terminalfx.TerminalTab;
 import javafx.application.Platform;
@@ -109,7 +109,7 @@ public class ToolkitViewEvent {
      *
      * @param event 事件对象
      */
-    @SelectTab("签名")
+    @AssertTab("签名")
     public void signButtonOnMouseClick(MouseEvent event) {
         // 这里需要先添加到tab，然后再调用下边的command
         taskView.getRootPane().getTabs().add(signatureView.getRootPane());
@@ -135,8 +135,8 @@ public class ToolkitViewEvent {
      *
      * @param event 事件对象
      */
-    @DeviceOnline
-    @SelectTab("日志")
+    @AssertDeviceOnline
+    @AssertTab("日志")
     public void logButtonOnMouseClick(MouseEvent event) {
         taskView.getRootPane().getTabs().add(deviceLogView.getRootPane());
     }
@@ -146,8 +146,8 @@ public class ToolkitViewEvent {
      *
      * @param event 事件对象
      */
-    @DeviceOnline
-    @SelectTab("进程")
+    @AssertDeviceOnline
+    @AssertTab("进程")
     public void processButtonOnMouseClick(MouseEvent event) {
         taskView.getRootPane().getTabs().add(deviceProcessView.getRootPane());
     }
@@ -179,7 +179,7 @@ public class ToolkitViewEvent {
         ThreadUtil.execAsync(apkToolCompileTask);
     }
 
-    @DeviceOnline
+    @AssertDeviceOnline
     @AssertWorkbenchTab
     public void installButtonOnMouseClick(MouseEvent event) {
         // 获取每个Apk解包后的路径下的/dist/目录
@@ -223,8 +223,8 @@ public class ToolkitViewEvent {
         }
     }
 
-    @DeviceOnline
-    @SelectTab("终端")
+    @AssertDeviceOnline
+    @AssertTab("终端")
     public void bashButtonOnMouseClick(MouseEvent event) {
         // 启动一个终端
         TerminalTab terminal = TERMINAL_BUILDER.newTerminal();
@@ -244,8 +244,8 @@ public class ToolkitViewEvent {
         terminal.onTerminalFxReady(() -> terminal.getTerminal().command(command));
     }
 
-    @DeviceOnline
-    @SelectTab("文件管理器")
+    @AssertDeviceOnline
+    @AssertTab("文件管理器")
     public void fileExplorerOnMouseClick(MouseEvent event) {
         DeviceExplorerView deviceExplorerView = new DeviceExplorerView(androidDeviceManager.getDevice());
         taskView.getRootPane().getTabs().add(deviceExplorerView.getRootPane());

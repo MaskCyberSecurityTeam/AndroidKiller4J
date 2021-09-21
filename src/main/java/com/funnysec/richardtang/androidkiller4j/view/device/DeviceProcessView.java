@@ -1,7 +1,7 @@
-package com.funnysec.richardtang.androidkiller4j.view.device.process;
+package com.funnysec.richardtang.androidkiller4j.view.device;
 
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
-import com.funnysec.richardtang.androidkiller4j.event.device.process.DeviceProcessViewEvent;
+import com.funnysec.richardtang.androidkiller4j.event.device.DeviceProcessViewEvent;
 import com.funnysec.richardtang.androidkiller4j.core.device.process.ProcessMessage;
 import com.funnysec.richardtang.androidkiller4j.view.BaseView;
 import javafx.geometry.Insets;

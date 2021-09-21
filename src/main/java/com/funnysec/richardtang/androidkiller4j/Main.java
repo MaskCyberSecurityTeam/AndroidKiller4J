@@ -11,9 +11,12 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * JavaFx主程序
@@ -46,8 +49,8 @@ public class Main extends Application {
     public void init() {
         appContext = new AnnotationConfigApplicationContext(SpringContextConfig.class);
 
-        mainView = appContext.getBean("mainView", MainView.class);
-        appProp = appContext.getBean("applicationProperties", Props.class);
+        mainView             = appContext.getBean("mainView", MainView.class);
+        appProp              = appContext.getBean("applicationProperties", Props.class);
         androidDeviceManager = appContext.getBean("androidDeviceManager", AndroidDeviceManager.class);
     }
 
@@ -55,8 +58,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         // 应用名称和应用图标需要单独处理
         String title = String.format("%s - %s", appProp.getStr("application.name"), appProp.getStr("application.version"));
-        Image icon = new Image(String.format("file://%s%s", ResourcePathConfig.IMAGE, appProp.getStr("application.icon")));
-        Scene scene = new Scene(mainView.getRootPane());
+        Image  icon  = new Image(String.format("file://%s%s", ResourcePathConfig.IMAGE, appProp.getStr("application.icon")));
+        Scene  scene = new Scene(mainView.getRootPane());
         scene.getStylesheets().addAll(
                 "file://" + ResourcePathConfig.CSS + "style.css",
                 getClass().getResource("/css/androidkiller4j-ui.css").toExternalForm()

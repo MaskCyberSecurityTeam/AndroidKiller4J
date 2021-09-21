@@ -1,4 +1,4 @@
-package com.funnysec.richardtang.androidkiller4j.view.device.explorer;
+package com.funnysec.richardtang.androidkiller4j.view.device;
 
 import com.android.ddmlib.FileListingService;
 import com.android.ddmlib.IDevice;

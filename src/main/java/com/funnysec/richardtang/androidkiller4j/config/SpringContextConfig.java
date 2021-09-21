@@ -2,7 +2,6 @@ package com.funnysec.richardtang.androidkiller4j.config;
 
 import cn.hutool.setting.dialect.Props;
 import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
 
 /**
  * JavaFx整合Spring的配置类

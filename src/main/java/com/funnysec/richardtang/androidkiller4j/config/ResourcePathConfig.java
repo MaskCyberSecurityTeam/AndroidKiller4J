@@ -36,7 +36,4 @@ public class ResourcePathConfig {
 
     // application.properties文件路径
     public static final String APPLICATION_PROPERTIES = CONFIG + "/application.properties";
-
-    // FontAwesome.ttf文件路径
-    public static final String FONT_AWESOME_TTF_FILE = "file://" + CSS + "/FontAwesome.tff";
 }

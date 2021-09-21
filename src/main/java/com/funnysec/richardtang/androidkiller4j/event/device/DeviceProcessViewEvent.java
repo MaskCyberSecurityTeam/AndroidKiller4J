@@ -1,10 +1,9 @@
-package com.funnysec.richardtang.androidkiller4j.event.device.process;
+package com.funnysec.richardtang.androidkiller4j.event.device;
 
-import com.funnysec.richardtang.androidkiller4j.config.ResourceImageConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.core.device.DeviceProcessReceiverManager;
 import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager;
-import com.funnysec.richardtang.androidkiller4j.view.device.process.DeviceProcessView;
+import com.funnysec.richardtang.androidkiller4j.view.device.DeviceProcessView;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;

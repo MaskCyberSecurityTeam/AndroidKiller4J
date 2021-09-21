@@ -1,4 +1,4 @@
-package com.funnysec.richardtang.androidkiller4j.core.ddmlib;
+package com.funnysec.richardtang.androidkiller4j.listener;
 
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.IDevice;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author RichardTang
  */
 @Component
-public class DeviceListener implements AndroidDebugBridge.IDeviceChangeListener {
+public class AndroidDeviceChangeListener implements AndroidDebugBridge.IDeviceChangeListener {
 
     @Autowired
     private ToolkitView toolkitView;

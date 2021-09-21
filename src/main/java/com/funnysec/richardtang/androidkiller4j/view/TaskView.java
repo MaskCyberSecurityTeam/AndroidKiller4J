@@ -9,7 +9,7 @@ import com.funnysec.richardtang.androidkiller4j.event.TaskViewEvent;
 import com.funnysec.richardtang.androidkiller4j.pojo.Apk;
 import com.funnysec.richardtang.androidkiller4j.pojo.TabUserData;
 import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
-import com.funnysec.richardtang.androidkiller4j.view.device.log.DeviceLogView;
+import com.funnysec.richardtang.androidkiller4j.view.device.DeviceLogView;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
