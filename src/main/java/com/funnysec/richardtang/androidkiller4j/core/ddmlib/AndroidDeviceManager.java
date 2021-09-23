@@ -6,9 +6,8 @@ import com.android.ddmlib.IDevice;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.listener.AndroidDeviceChangeListener;
 import lombok.Data;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,15 +17,15 @@ import java.util.concurrent.TimeUnit;
  * @author RichardTang
  */
 @Data
-@Component
-public class AndroidDeviceManager implements InitializingBean {
+@IocBean(create = "createAfterLaunch")
+public class AndroidDeviceManager {
 
     // 设备对象，当前adb中所选中的设备会存储在这个属性中。
     private IDevice device;
 
     private AndroidDebugBridge bridge;
 
-    @Autowired
+    @Inject
     private AndroidDeviceChangeListener deviceListener;
 
     public AndroidDeviceManager() {
@@ -37,8 +36,7 @@ public class AndroidDeviceManager implements InitializingBean {
     /**
      * 当前类在Spring初始化完毕后调用
      */
-    @Override
-    public void afterPropertiesSet() {
+    public void createAfterLaunch() {
         AndroidDebugBridge.addDeviceChangeListener(deviceListener);
     }
 

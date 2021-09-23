@@ -1,8 +1,5 @@
 package com.funnysec.richardtang.androidkiller4j.view;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
-
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -13,7 +10,7 @@ import java.lang.reflect.Type;
  * @param <P> 当前View中的根Pane类型
  * @author RichardTang
  */
-public abstract class BaseView<P> implements InitializingBean {
+public abstract class BaseView<P> {
 
     // 根Pane类型
     private P view;
@@ -67,13 +64,7 @@ public abstract class BaseView<P> implements InitializingBean {
      */
     protected abstract void initialize();
 
-    /**
-     * Spring容器中的Bean初始化完毕后调用该函数，该函数中依次调用UI、布局、事件的初始化函数。
-     * <b>注意: 这个初始化函数只有将创建权交给Spring的类，才会调用该函数。就是加了{@link Component}的类</b>
-     * <b>注意2: 如果未加{@link Component}则需要手动通过构造函数的方式进行调用，注意加载的顺序问题。</b>
-     */
-    @Override
-    public void afterPropertiesSet() {
+    public final void createAfterLaunch() {
         initUi();
         initAttr();
         initLayout();

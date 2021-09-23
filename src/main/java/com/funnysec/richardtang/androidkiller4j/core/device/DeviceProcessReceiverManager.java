@@ -5,7 +5,7 @@ import com.android.ddmlib.IDevice;
 import com.funnysec.richardtang.androidkiller4j.core.device.process.ProcessMessage;
 import com.funnysec.richardtang.androidkiller4j.core.device.process.ProcessMessageListener;
 import com.funnysec.richardtang.androidkiller4j.core.device.process.ProcessMessageReceiverTask;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author RichardTang
  */
-@Component
+@IocBean
 public class DeviceProcessReceiverManager {
 
     private List<ProcessMessage> data;

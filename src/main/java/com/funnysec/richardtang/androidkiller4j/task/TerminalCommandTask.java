@@ -1,7 +1,6 @@
 package com.funnysec.richardtang.androidkiller4j.task;
 
 import cn.hutool.core.util.RuntimeUtil;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 
 import java.io.BufferedReader;

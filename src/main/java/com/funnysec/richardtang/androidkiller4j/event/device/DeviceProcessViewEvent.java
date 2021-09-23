@@ -1,29 +1,24 @@
 package com.funnysec.richardtang.androidkiller4j.event.device;
 
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
-import com.funnysec.richardtang.androidkiller4j.core.device.DeviceProcessReceiverManager;
 import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager;
+import com.funnysec.richardtang.androidkiller4j.core.device.DeviceProcessReceiverManager;
 import com.funnysec.richardtang.androidkiller4j.view.device.DeviceProcessView;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
-/**
- * {@link DeviceProcessView}视图对应的事件处理类
- *
- * @author RichardTang
- */
-@Component
+@IocBean
 public class DeviceProcessViewEvent {
 
-    @Autowired
+    @Inject
     private DeviceProcessView deviceProcessView;
 
-    @Autowired
+    @Inject
     private AndroidDeviceManager androidDeviceManager;
 
-    @Autowired
+    @Inject
     private DeviceProcessReceiverManager deviceProcessReceiverManager;
 
     public void changeButtonOnMouseClick(MouseEvent event) {
@@ -32,11 +27,11 @@ public class DeviceProcessViewEvent {
         if ("开始".equals(btn.getText())) {
             deviceProcessReceiverManager.run(androidDeviceManager.getDevice(), deviceProcessView.getTableView().getItems());
             btn.setText("暂停");
-            btn.setGraphic(Icon.DEVICE_PROCESS_STOP);
+            btn.setGraphic(Icon.DEVICE_PROCESS_VIEW_STOP);
         } else {
             deviceProcessReceiverManager.stop();
             btn.setText("开始");
-            btn.setGraphic(Icon.DEVICE_PROCESS_START);
+            btn.setGraphic(Icon.DEVICE_PROCESS_VIEW_START);
         }
     }
 }

@@ -5,11 +5,11 @@ import com.android.ddmlib.IDevice;
 import com.android.ddmlib.logcat.LogCatListener;
 import com.android.ddmlib.logcat.LogCatMessage;
 import com.android.ddmlib.logcat.LogCatReceiverTask;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 import java.util.List;
 
-@Component
+@IocBean
 public class DeviceLogReceiverManager {
 
     private List data;

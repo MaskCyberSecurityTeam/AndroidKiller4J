@@ -12,23 +12,22 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import org.controlsfx.control.PrefixSelectionComboBox;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.WatchEvent;
 
 @Data
-@Component
-public class SignatureView extends BaseView<Tab> {
+public class SignatureView extends IocView<Tab> {
 
     private SplitPane splitPane;
     private GridPane  leftGridPane;
@@ -104,7 +103,7 @@ public class SignatureView extends BaseView<Tab> {
     private Label                           certOperateBtnLabel;
     private Button                          certOperateButton;
 
-    @Autowired
+    @Inject
     private SignatureViewEvent signatureViewEvent;
 
     // 用于监听项目的config/目录

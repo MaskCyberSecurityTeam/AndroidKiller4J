@@ -8,7 +8,6 @@ import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 /**
  * 控制台
@@ -16,8 +15,7 @@ import org.springframework.stereotype.Component;
  * @author RichardTang
  */
 @Data
-@Component
-public class ControlView extends BaseView<TabPane> {
+public class ControlView extends IocView<TabPane> {
 
     // 日志输出组件
     private static ConsoleTextArea runLogTextArea;
@@ -26,8 +24,8 @@ public class ControlView extends BaseView<TabPane> {
         runLogTextArea = new ConsoleTextArea();
 
         // 将java的日志信息重定向到runLogTextArea组件中
-//        System.setOut(runLogTextArea.getConsoleTextAreaPrintStream());
-//        System.setErr(runLogTextArea.getConsoleTextAreaPrintStream());
+        System.setOut(runLogTextArea.getConsoleTextAreaPrintStream());
+        System.setErr(runLogTextArea.getConsoleTextAreaPrintStream());
     }
 
     // 日志Tab
@@ -35,7 +33,7 @@ public class ControlView extends BaseView<TabPane> {
 
     @Override
     protected void initUi() {
-        runLogTab = FxUtil.getTab("日志", Icon.DEVICE_LOG_OUTPUT, "控制台日志", null);
+        runLogTab = FxUtil.getTab("日志", Icon.CONTROL_VIEW_LOG, "控制台日志", null);
     }
 
     @Override

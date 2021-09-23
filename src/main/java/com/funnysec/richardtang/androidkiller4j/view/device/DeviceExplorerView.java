@@ -35,7 +35,7 @@ public class DeviceExplorerView extends BaseView<Tab> {
 
     public DeviceExplorerView(IDevice iDevice) {
         this.iDevice = iDevice;
-        afterPropertiesSet();
+        createAfterLaunch();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class DeviceExplorerView extends BaseView<Tab> {
         treeTableView.setShowRoot(false);
         getRootPane().setGraphic(Icon.DEVICE_EXPLORER_VIEW_TAB);
         getRootPane().setText("文件管理器");
-        getRootPane().setUserData(new TabUserData<Void>("文件管理器", null));
+        getRootPane().setUserData(new TabUserData<>("文件管理器", null));
     }
 
     @Override
@@ -149,7 +149,7 @@ public class DeviceExplorerView extends BaseView<Tab> {
                     getChildren().clear();
                 }
                 if (getChildren().size() == 0) {
-                    Event.fireEvent(this, new TreeItem.TreeModificationEvent<>(TreeItem.valueChangedEvent(), this, getValue()));
+                    Event.fireEvent(this, new TreeModificationEvent<>(TreeItem.valueChangedEvent(), this, getValue()));
                 }
             }
         }

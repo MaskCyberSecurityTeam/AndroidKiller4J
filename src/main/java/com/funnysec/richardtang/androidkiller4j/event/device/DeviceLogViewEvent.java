@@ -1,9 +1,5 @@
 package com.funnysec.richardtang.androidkiller4j.event.device;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.android.ddmlib.Log;
@@ -11,30 +7,21 @@ import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager;
 import com.funnysec.richardtang.androidkiller4j.core.device.DeviceLogReceiverManager;
 import com.funnysec.richardtang.androidkiller4j.view.device.DeviceLogView;
-import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-/**
- * {@link DeviceLogView}视图事件处理类
- *
- * @author RichardTang
- */
-@Component
+@IocBean
 public class DeviceLogViewEvent {
 
-    @Autowired
+    @Inject
     private DeviceLogView deviceLogView;
 
-    @Autowired
+    @Inject
     private AndroidDeviceManager androidDeviceManager;
 
-    @Autowired
+    @Inject
     private DeviceLogReceiverManager deviceLogReceiverManager;
 
     /**
@@ -48,11 +35,11 @@ public class DeviceLogViewEvent {
         if ("开始".equals(btn.getText())) {
             deviceLogReceiverManager.run(androidDeviceManager.getDevice(), deviceLogView.getTableViewItem());
             btn.setText("暂停");
-            btn.setGraphic(Icon.DEVICE_LOG_FILTER_STOP);
+            btn.setGraphic(Icon.DEVICE_LOG_VIEW_FILTER_STOP);
         } else {
             deviceLogReceiverManager.stop();
             btn.setText("开始");
-            btn.setGraphic(Icon.DEVICE_LOG_FILTER_START);
+            btn.setGraphic(Icon.DEVICE_LOG_VIEW_FILTER_START);
         }
     }
 

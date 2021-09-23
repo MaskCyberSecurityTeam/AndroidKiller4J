@@ -2,18 +2,13 @@ package com.funnysec.richardtang.androidkiller4j.event;
 
 import com.funnysec.richardtang.androidkiller4j.view.ControlView;
 import javafx.scene.input.MouseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
-/**
- * {@link com.funnysec.richardtang.androidkiller4j.view.MainView}视图中对应的事件处理类
- *
- * @author RichardTang
- */
-@Component
+@IocBean
 public class MainViewEvent {
 
-    @Autowired
+    @Inject
     private ControlView controlView;
 
     public void clearLogImageButtonOnMouseClick(MouseEvent event) {

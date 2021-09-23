@@ -1,9 +1,9 @@
 package com.funnysec.richardtang.androidkiller4j.view.device;
 
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
-import com.funnysec.richardtang.androidkiller4j.event.device.DeviceProcessViewEvent;
 import com.funnysec.richardtang.androidkiller4j.core.device.process.ProcessMessage;
-import com.funnysec.richardtang.androidkiller4j.view.BaseView;
+import com.funnysec.richardtang.androidkiller4j.event.device.DeviceProcessViewEvent;
+import com.funnysec.richardtang.androidkiller4j.view.IocView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,12 +14,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
 
 @Data
-@Component
-public class DeviceProcessView extends BaseView<Tab> {
+public class DeviceProcessView extends IocView<Tab> {
 
     private Button changeButton;
 
@@ -41,7 +39,7 @@ public class DeviceProcessView extends BaseView<Tab> {
     private VBox vBox;
     private HBox hBox;
 
-    @Autowired
+    @Inject
     private DeviceProcessViewEvent deviceProcessViewEvent;
 
     @Override
@@ -60,7 +58,7 @@ public class DeviceProcessView extends BaseView<Tab> {
         time      = new TableColumn<>("时间");
         args      = new TableColumn<>("参数值");
 
-        changeButton = new Button("开始", Icon.DEVICE_PROCESS_STOP);
+        changeButton = new Button("开始", Icon.DEVICE_PROCESS_VIEW_STOP);
 
         // 配合进行布局使用
         vBox = new VBox();
@@ -70,7 +68,7 @@ public class DeviceProcessView extends BaseView<Tab> {
     @Override
     protected void initAttr() {
         getRootPane().setText("进程");
-        getRootPane().setGraphic(Icon.DEVICE_PROCESS_TAB);
+        getRootPane().setGraphic(Icon.DEVICE_PROCESS_VIEW_TAB);
 
         bindCellValueFactory(pid, "pid");
         bindCellValueFactory(user, "user");

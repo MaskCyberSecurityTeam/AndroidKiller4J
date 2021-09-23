@@ -18,8 +18,8 @@
         <richtextfx.version>0.10.6</richtextfx.version>
         <ddmlib.version>27.2.2</ddmlib.version>
         <terminalfx.version>1.0.8</terminalfx.version>
-        <spring.version>5.3.9</spring.version>
         <controlsfx.version>11.1.0</controlsfx.version>
+        <nutz.version>1.r.68.v20190220</nutz.version>
     </properties>
 
     <dependencies>
@@ -61,27 +61,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>${controlsfx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>nutz</artifactId>
+            <version>${nutz.version}</version>
         </dependency>
     </dependencies>
 

@@ -12,24 +12,19 @@ import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import com.funnysec.richardtang.androidkiller4j.view.SignatureView;
 import com.funnysec.richardtang.androidkiller4j.view.TaskView;
 import javafx.scene.input.MouseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * {@link com.funnysec.richardtang.androidkiller4j.view.SignatureView}视图中对应的事件处理类
- *
- * @author RichardTang
- */
-@Component
+@IocBean
 public class SignatureViewEvent {
 
-    @Autowired
+    @Inject
     private TaskView taskView;
 
-    @Autowired
+    @Inject
     private SignatureView signatureView;
 
     /**
@@ -65,19 +60,19 @@ public class SignatureViewEvent {
      * @param event 事件对象
      */
     public void certOperateButtonOnMouseClick(MouseEvent event) {
-        String alias            = signatureView.getCertAliasTextField().getText();
-        String keyAlg           = signatureView.getCertKeyAlgComboBox().getSelectionModel().getSelectedItem();
-        String keySize          = signatureView.getCertKeySizeTextField().getText();
-        String keyStore         = signatureView.getCertKeyStoreTextField().getText();
-        String keyPass          = signatureView.getCertKeyPassTextField().getText();
-        String storePass        = signatureView.getCertStorePassTextField().getText();
-        String validity         = signatureView.getCertValidityTextField().getText();
-        String commonName       = signatureView.getCertCommonNameTextField().getText();
+        String alias = signatureView.getCertAliasTextField().getText();
+        String keyAlg = signatureView.getCertKeyAlgComboBox().getSelectionModel().getSelectedItem();
+        String keySize = signatureView.getCertKeySizeTextField().getText();
+        String keyStore = signatureView.getCertKeyStoreTextField().getText();
+        String keyPass = signatureView.getCertKeyPassTextField().getText();
+        String storePass = signatureView.getCertStorePassTextField().getText();
+        String validity = signatureView.getCertValidityTextField().getText();
+        String commonName = signatureView.getCertCommonNameTextField().getText();
         String organizationUnit = signatureView.getCertOrganizationUnitTextField().getText();
-        String organization     = signatureView.getCertOrganizationTextField().getText();
-        String locality         = signatureView.getCertLocalityTextField().getText();
-        String state            = signatureView.getCertStateTextField().getText();
-        String country          = signatureView.getCertCountryTextField().getText();
+        String organization = signatureView.getCertOrganizationTextField().getText();
+        String locality = signatureView.getCertLocalityTextField().getText();
+        String state = signatureView.getCertStateTextField().getText();
+        String country = signatureView.getCertCountryTextField().getText();
 
         // 拼接参数
         StringBuilder command = new StringBuilder("keytool -genkey -v ");
@@ -155,10 +150,10 @@ public class SignatureViewEvent {
      * @param e 事件对象
      */
     public void signButtonOnMouseClick(MouseEvent e) {
-        File    signApkFile   = new File(signatureView.getSignApkTextField().getText());
-        String  outputPath    = signatureView.getSignApkOutputTextField().getText();
-        String  keystore      = signatureView.getSignCertComboBox().getSelectionModel().getSelectedItem();
-        boolean openDir       = signatureView.getOpenDirCheckBox().isSelected();
+        File signApkFile = new File(signatureView.getSignApkTextField().getText());
+        String outputPath = signatureView.getSignApkOutputTextField().getText();
+        String keystore = signatureView.getSignCertComboBox().getSelectionModel().getSelectedItem();
+        boolean openDir = signatureView.getOpenDirCheckBox().isSelected();
         boolean delSourceFile = signatureView.getDelSourceCheckBox().isSelected();
 
         ApkSignatureTask apkSignatureTask =

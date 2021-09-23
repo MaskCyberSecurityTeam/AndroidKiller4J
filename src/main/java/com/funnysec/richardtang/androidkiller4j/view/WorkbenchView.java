@@ -6,9 +6,8 @@ import com.funnysec.richardtang.androidkiller4j.constant.ProtocolString;
 import com.funnysec.richardtang.androidkiller4j.pojo.Apk;
 import com.funnysec.richardtang.androidkiller4j.pojo.TabUserData;
 import com.funnysec.richardtang.androidkiller4j.ui.FxCodeArea;
-import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
 import com.funnysec.richardtang.androidkiller4j.ui.SystemFileTreeView;
-import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
+import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -45,7 +44,7 @@ public class WorkbenchView extends BaseView<Tab> {
 
     public WorkbenchView(Apk apk) {
         this.apk = apk;
-        afterPropertiesSet();
+        createAfterLaunch();
     }
 
     @Override
@@ -63,7 +62,7 @@ public class WorkbenchView extends BaseView<Tab> {
     protected void initAttr() {
         getRootPane().setClosable(true);
         getRootPane().setText(apk.getApplicationName());
-        getRootPane().setUserData(new TabUserData<Apk>(apk.getApplicationName(), apk));
+        getRootPane().setUserData(new TabUserData<>(apk.getApplicationName(), apk));
         getRootPane().setGraphic(new ImageView(ProtocolString.FILE + apk.getIconPath()));
 
         functionTabPane.setSide(Side.LEFT);
@@ -119,7 +118,7 @@ public class WorkbenchView extends BaseView<Tab> {
         private HBox appIconAndInfoHBox;
 
         InfoTabView() {
-            afterPropertiesSet();
+            createAfterLaunch();
         }
 
         @Override
@@ -146,7 +145,8 @@ public class WorkbenchView extends BaseView<Tab> {
         @Override
         protected void initAttr() {
             getRootPane().setText("信息");
-            getRootPane().setGraphic(Icon.WORKBENCH_INFO);
+            getRootPane().setClosable(false);
+            getRootPane().setGraphic(Icon.WORKBENCH_VIEW_INFO);
             getRootPane().setUserData(new TabUserData<>("信息", null));
 
             infoTabVBox.setPadding(new Insets(10));
@@ -194,7 +194,7 @@ public class WorkbenchView extends BaseView<Tab> {
         private SystemFileTreeView apkDirTreeView;
 
         ManagerTabView() {
-            afterPropertiesSet();
+            createAfterLaunch();
         }
 
         @Override
@@ -205,7 +205,8 @@ public class WorkbenchView extends BaseView<Tab> {
         @Override
         protected void initAttr() {
             getRootPane().setText("管理");
-            getRootPane().setGraphic(Icon.WORKBENCH_MANAGER);
+            getRootPane().setClosable(false);
+            getRootPane().setGraphic(Icon.WORKBENCH_VIEW_MANAGER);
             getRootPane().setUserData(new TabUserData<>("管理", null));
         }
 
@@ -239,7 +240,7 @@ public class WorkbenchView extends BaseView<Tab> {
     private class SearchTabView extends BaseView<Tab> {
 
         SearchTabView() {
-            afterPropertiesSet();
+            createAfterLaunch();
         }
 
         @Override
@@ -249,7 +250,8 @@ public class WorkbenchView extends BaseView<Tab> {
         @Override
         protected void initAttr() {
             getRootPane().setText("搜索");
-            getRootPane().setGraphic(Icon.WORKBENCH_SEARCH);
+            getRootPane().setClosable(false);
+            getRootPane().setGraphic(Icon.WORKBENCH_VIEW_SEARCH);
             getRootPane().setUserData(new TabUserData<>("搜索", null));
         }
 

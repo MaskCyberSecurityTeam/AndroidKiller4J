@@ -5,18 +5,13 @@ import com.funnysec.richardtang.androidkiller4j.view.TaskView;
 import com.funnysec.richardtang.androidkiller4j.view.WorkbenchView;
 import javafx.scene.control.Tab;
 import javafx.scene.input.MouseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
-/**
- * {@link TaskView}视图中的组件对应的事件类
- *
- * @author RichardTang
- */
-@Component
+@IocBean
 public class TaskViewEvent {
 
-    @Autowired
+    @Inject
     private TaskView taskView;
 
     /**

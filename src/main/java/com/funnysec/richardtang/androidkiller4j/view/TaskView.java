@@ -15,8 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
 
 import java.io.File;
 
@@ -25,8 +24,7 @@ import java.io.File;
  * 打开程序时看到的那个Apk列表的任务表格就是这个。
  */
 @Data
-@Component
-public class TaskView extends BaseView<TabPane> {
+public class TaskView extends IocView<TabPane> {
 
     // 任务列表
     private Tab taskTab;
@@ -34,13 +32,13 @@ public class TaskView extends BaseView<TabPane> {
     // 存放apk视图的组件
     private ListView<Apk> listView;
 
-    @Autowired
+    @Inject
     private TaskViewEvent taskViewEvent;
 
-    @Autowired
+    @Inject
     private DeviceLogView deviceLogView;
 
-    @Autowired
+    @Inject
     private SignatureView signatureView;
 
     @Override

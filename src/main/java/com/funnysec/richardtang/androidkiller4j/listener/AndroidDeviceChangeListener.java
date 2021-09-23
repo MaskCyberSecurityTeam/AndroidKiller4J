@@ -3,18 +3,18 @@ package com.funnysec.richardtang.androidkiller4j.listener;
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.IDevice;
 import com.funnysec.richardtang.androidkiller4j.view.ToolkitView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 /**
  * Device设备监听，当有新设备连接、断开、切换时会触发该类中对应的函数。
  *
  * @author RichardTang
  */
-@Component
+@IocBean
 public class AndroidDeviceChangeListener implements AndroidDebugBridge.IDeviceChangeListener {
 
-    @Autowired
+    @Inject
     private ToolkitView toolkitView;
 
     /**

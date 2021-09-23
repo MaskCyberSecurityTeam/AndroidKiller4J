@@ -39,7 +39,7 @@ public class FxUtil {
         Tab tab = new Tab();
         tab.setText(title);
         tab.setGraphic(icon);
-        tab.setUserData(new TabUserData<Object>(tabId, data));
+        tab.setUserData(new TabUserData<>(tabId, data));
         return tab;
     }
 }

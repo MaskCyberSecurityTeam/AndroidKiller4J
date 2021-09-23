@@ -1,7 +1,7 @@
 package com.funnysec.richardtang.androidkiller4j.core.device.process;
 
 import cn.hutool.core.util.StrUtil;
-import com.android.annotations.NonNull;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;

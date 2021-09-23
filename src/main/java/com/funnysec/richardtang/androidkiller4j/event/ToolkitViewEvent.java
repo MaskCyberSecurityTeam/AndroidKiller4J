@@ -4,9 +4,9 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.android.ddmlib.IDevice;
-import com.funnysec.richardtang.androidkiller4j.annotation.AssertWorkbenchTab;
-import com.funnysec.richardtang.androidkiller4j.annotation.AssertDeviceOnline;
-import com.funnysec.richardtang.androidkiller4j.annotation.AssertTab;
+import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertDeviceOnline;
+import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertTab;
+import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertWorkbenchTab;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
@@ -17,17 +17,19 @@ import com.funnysec.richardtang.androidkiller4j.task.ApkSignatureTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolCompileTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolDecompileTask;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
-import com.funnysec.richardtang.androidkiller4j.view.*;
+import com.funnysec.richardtang.androidkiller4j.view.SignatureView;
+import com.funnysec.richardtang.androidkiller4j.view.TaskView;
+import com.funnysec.richardtang.androidkiller4j.view.ToolkitView;
 import com.funnysec.richardtang.androidkiller4j.view.device.DeviceExplorerView;
 import com.funnysec.richardtang.androidkiller4j.view.device.DeviceLogView;
 import com.funnysec.richardtang.androidkiller4j.view.device.DeviceProcessView;
+import com.funnysec.richardtang.androidkiller4j.view.preference.PreferenceView;
 import com.kodedu.terminalfx.TerminalBuilder;
 import com.kodedu.terminalfx.TerminalTab;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -37,27 +39,29 @@ import java.io.FilenameFilter;
  *
  * @author RichardTang
  */
-@Lazy
-@Component
+@IocBean
 @SuppressWarnings("all")
 public class ToolkitViewEvent {
 
-    @Autowired
+    @Inject
     private TaskView taskView;
 
-    @Autowired
+    @Inject
     private ToolkitView toolkitView;
 
-    @Autowired
+    @Inject
     private SignatureView signatureView;
 
-    @Autowired
+    @Inject
     private DeviceLogView deviceLogView;
 
-    @Autowired
+    @Inject
     private DeviceProcessView deviceProcessView;
 
-    @Autowired
+    @Inject
+    private PreferenceView settingView;
+
+    @Inject
     private AndroidDeviceManager androidDeviceManager;
 
     private final TerminalBuilder TERMINAL_BUILDER = new TerminalBuilder();
@@ -86,10 +90,6 @@ public class ToolkitViewEvent {
         // TODO 这里后边编写自动监听project目录，然后自动刷新加入apk。
         apkToolDecompileTask.setOnScheduled(e -> Platform.runLater(() -> taskView.getListView().getItems().add(new Apk(outputDir))));
         ThreadUtil.execAsync(apkToolDecompileTask);
-    }
-
-    public void settingButtonOnMouseClick(MouseEvent event) {
-
     }
 
     /**
@@ -169,7 +169,7 @@ public class ToolkitViewEvent {
     public void compileButtonOnMouseClick(MouseEvent event) {
         Object userData = taskView.getRootPane().getSelectionModel().getSelectedItem().getUserData();
 
-        Apk    apk           = (Apk) userData;
+        Apk apk           = (Apk) userData;
         String basePath      = apk.getBasePath();
         String unsignApkPath = basePath + "/dist/" + apk.getFileName();
         String signApkPath   = basePath + "/dist/sign_" + apk.getFileName();
@@ -238,7 +238,7 @@ public class ToolkitViewEvent {
         TerminalTab terminal = TERMINAL_BUILDER.newTerminal();
         terminal.setUserData("终端");
         terminal.setText("BASH");
-        terminal.setGraphic(Icon.DEVICE_BASH_TAB);
+        terminal.setGraphic(Icon.TASK_VIEW_BASH);
 
         // clear 回车 adb -s deviceName shell
         String command = String.format("clear\r%s -s %s shell\r",
@@ -316,5 +316,9 @@ public class ToolkitViewEvent {
             androidDeviceManager.killServer();
             System.out.println("获取设备结束");
         }
+    }
+
+    public void settingButtonOnMouseClick(MouseEvent event) {
+        taskView.getRootPane().getTabs().add(settingView.getRootPane());
     }
 }

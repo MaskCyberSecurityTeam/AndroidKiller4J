@@ -1,11 +1,10 @@
 package com.funnysec.richardtang.androidkiller4j.view.device;
 
-import cn.hutool.core.util.StrUtil;
 import com.android.ddmlib.Log;
 import com.android.ddmlib.logcat.LogCatMessage;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.event.device.DeviceLogViewEvent;
-import com.funnysec.richardtang.androidkiller4j.view.BaseView;
+import com.funnysec.richardtang.androidkiller4j.view.IocView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,8 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
 
 /**
  * 设备日志视图
@@ -25,8 +23,7 @@ import org.springframework.stereotype.Component;
  * @author RichardTang
  */
 @Data
-@Component
-public class DeviceLogView extends BaseView<Tab> {
+public class DeviceLogView extends IocView<Tab> {
 
     // 过滤条件组件
     private Label                   pidLabel;
@@ -58,7 +55,7 @@ public class DeviceLogView extends BaseView<Tab> {
     FilteredList<LogCatMessage>   filteredData;
     ObservableList<LogCatMessage> tableViewItem;
 
-    @Autowired
+    @Inject
     private DeviceLogViewEvent deviceLogViewEvent;
 
     @Override
@@ -72,7 +69,7 @@ public class DeviceLogView extends BaseView<Tab> {
         messageTextField  = new TextField();
         logLevelChoiceBox = new ChoiceBox<>();
         splitLine         = new Label("  ");
-        switchButton      = new Button("开始", Icon.DEVICE_LOG_FILTER_START);
+        switchButton      = new Button("开始", Icon.DEVICE_LOG_VIEW_FILTER_START);
         conditionHBox     = new HBox();
 
         tableView            = new TableView<>();
@@ -108,7 +105,7 @@ public class DeviceLogView extends BaseView<Tab> {
         switchButton.setPadding(new Insets(4));
 
         getRootPane().setText("日志");
-        getRootPane().setGraphic(Icon.DEVICE_LOG_TAB);
+        getRootPane().setGraphic(Icon.DEVICE_LOG_VIEW_TAB);
         getRootPane().setUserData("日志");
         getRootPane().setClosable(true);
 
@@ -152,7 +149,7 @@ public class DeviceLogView extends BaseView<Tab> {
         tagTextField.textProperty().addListener(obs -> deviceLogViewEvent.conditionSearch());
         messageTextField.textProperty().addListener(obs -> deviceLogViewEvent.conditionSearch());
         logLevelChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-            obs -> deviceLogViewEvent.conditionSearch()
+                obs -> deviceLogViewEvent.conditionSearch()
         );
     }
 

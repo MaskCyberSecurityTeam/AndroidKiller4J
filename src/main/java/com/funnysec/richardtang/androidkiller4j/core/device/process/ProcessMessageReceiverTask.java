@@ -2,7 +2,8 @@ package com.funnysec.richardtang.androidkiller4j.core.device.process;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.concurrency.GuardedBy;
-import com.android.ddmlib.*;
+import com.android.ddmlib.IDevice;
+import com.android.ddmlib.MultiLineReceiver;
 
 import java.util.HashSet;
 import java.util.List;

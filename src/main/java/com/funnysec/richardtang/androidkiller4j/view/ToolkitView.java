@@ -6,10 +6,12 @@ import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager
 import com.funnysec.richardtang.androidkiller4j.event.ToolkitViewEvent;
 import com.funnysec.richardtang.androidkiller4j.ui.AccordionTabPane;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tab;
+import javafx.scene.control.ToolBar;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.nutz.ioc.loader.annotation.Inject;
 
 /**
  * 顶部工具栏View，效果为手风琴效果的TabPane。
@@ -17,8 +19,7 @@ import org.springframework.stereotype.Component;
  * @author RichardTang
  */
 @Data
-@Component
-public class ToolkitView extends BaseView<AccordionTabPane> {
+public class ToolkitView extends IocView<AccordionTabPane> {
 
     // Tab 系统、安卓、设备
     private Tab systemTab;
@@ -51,10 +52,10 @@ public class ToolkitView extends BaseView<AccordionTabPane> {
     private Button             deviceRefreshButton;
     private ChoiceBox<IDevice> deviceChoiceBox;
 
-    @Autowired
+    @Inject
     private ToolkitViewEvent toolkitViewEvent;
 
-    @Autowired
+    @Inject
     private AndroidDeviceManager androidDeviceManager;
 
     @Override
