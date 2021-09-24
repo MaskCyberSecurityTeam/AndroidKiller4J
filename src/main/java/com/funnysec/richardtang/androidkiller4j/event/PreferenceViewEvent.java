@@ -1,6 +1,6 @@
 package com.funnysec.richardtang.androidkiller4j.event;
 
-import com.funnysec.richardtang.androidkiller4j.properties.ApplicationProperties;
+import com.funnysec.richardtang.androidkiller4j.config.ApplicationConfig;
 import com.funnysec.richardtang.androidkiller4j.view.preference.PreferenceAppConfigView;
 import com.funnysec.richardtang.androidkiller4j.view.preference.PreferenceView;
 import javafx.beans.Observable;
@@ -18,11 +18,9 @@ public class PreferenceViewEvent {
     private PreferenceAppConfigView preferenceAppConfigView;
 
     @Inject
-    private ApplicationProperties applicationProperties;
+    private ApplicationConfig applicationConfig;
 
     public void optionTreeViewSelectItem(Observable obs, TreeItem<String> oldValue, TreeItem<String> newValue) {
         preferenceView.getShowStackPane().getChildren().add(preferenceAppConfigView.getRootPane());
-        System.out.println(applicationProperties);
-        System.out.println(newValue.getValue());
     }
 }

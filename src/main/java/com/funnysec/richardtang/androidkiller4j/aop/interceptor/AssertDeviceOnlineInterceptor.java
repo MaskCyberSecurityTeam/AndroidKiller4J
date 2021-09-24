@@ -8,6 +8,11 @@ import org.nutz.aop.MethodInterceptor;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 
+/**
+ * {@link com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertDeviceOnline}注解的实现
+ *
+ * @author RichardTang
+ */
 @IocBean
 public class AssertDeviceOnlineInterceptor implements MethodInterceptor {
 

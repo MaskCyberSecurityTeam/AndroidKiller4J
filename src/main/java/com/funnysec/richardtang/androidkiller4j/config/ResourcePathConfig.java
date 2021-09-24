@@ -1,6 +1,7 @@
 package com.funnysec.richardtang.androidkiller4j.config;
 
 import cn.hutool.system.SystemUtil;
+import com.funnysec.richardtang.androidkiller4j.constant.ProtocolString;
 import com.sun.jna.Platform;
 
 /**
@@ -36,4 +37,10 @@ public class ResourcePathConfig {
 
     // application.properties文件路径
     public static final String APPLICATION_PROPERTIES = CONFIG + "/application.properties";
+
+    // style.css
+    public static final String STYLE_CSS = ProtocolString.FILE + ResourcePathConfig.CSS + "/style.css";
+
+    public static final String UI_CSS = ResourcePathConfig.class.getResource("/css/androidkiller4j-ui.css").toExternalForm();
+
 }

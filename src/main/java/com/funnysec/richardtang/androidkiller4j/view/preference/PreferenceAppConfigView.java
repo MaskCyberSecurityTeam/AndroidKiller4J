@@ -1,6 +1,6 @@
 package com.funnysec.richardtang.androidkiller4j.view.preference;
 
-import com.funnysec.richardtang.androidkiller4j.properties.ApplicationProperties;
+import com.funnysec.richardtang.androidkiller4j.config.ApplicationConfig;
 import com.funnysec.richardtang.androidkiller4j.view.IocView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -29,7 +29,7 @@ public class PreferenceAppConfigView extends IocView<GridPane> {
     private TextField appMinHeightTextField;
 
     @Inject
-    private ApplicationProperties applicationProperties;
+    private ApplicationConfig applicationConfig;
 
     @Override
     protected void initUi() {
@@ -42,7 +42,7 @@ public class PreferenceAppConfigView extends IocView<GridPane> {
         appMinHeightLabel = new Label("最小宽度");
 
         appNameTextField      = new TextField();
-        appIconImageView      = new ImageView(new Image(applicationProperties.getAppIconPath()));
+        appIconImageView      = new ImageView(new Image(applicationConfig.getAppIconPath()));
         appVersionTextField   = new TextField();
         appDefWidthTextField  = new TextField();
         appDefHeightTextField = new TextField();
