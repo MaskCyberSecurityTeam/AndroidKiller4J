@@ -60,19 +60,19 @@ public class SignatureViewEvent {
      * @param event 事件对象
      */
     public void certOperateButtonOnMouseClick(MouseEvent event) {
-        String alias = signatureView.getCertAliasTextField().getText();
-        String keyAlg = signatureView.getCertKeyAlgComboBox().getSelectionModel().getSelectedItem();
-        String keySize = signatureView.getCertKeySizeTextField().getText();
-        String keyStore = signatureView.getCertKeyStoreTextField().getText();
-        String keyPass = signatureView.getCertKeyPassTextField().getText();
-        String storePass = signatureView.getCertStorePassTextField().getText();
-        String validity = signatureView.getCertValidityTextField().getText();
-        String commonName = signatureView.getCertCommonNameTextField().getText();
+        String alias            = signatureView.getCertAliasTextField().getText();
+        String keyAlg           = signatureView.getCertKeyAlgComboBox().getSelectionModel().getSelectedItem();
+        String keySize          = signatureView.getCertKeySizeTextField().getText();
+        String keyStore         = signatureView.getCertKeyStoreTextField().getText();
+        String keyPass          = signatureView.getCertKeyPassTextField().getText();
+        String storePass        = signatureView.getCertStorePassTextField().getText();
+        String validity         = signatureView.getCertValidityTextField().getText();
+        String commonName       = signatureView.getCertCommonNameTextField().getText();
         String organizationUnit = signatureView.getCertOrganizationUnitTextField().getText();
-        String organization = signatureView.getCertOrganizationTextField().getText();
-        String locality = signatureView.getCertLocalityTextField().getText();
-        String state = signatureView.getCertStateTextField().getText();
-        String country = signatureView.getCertCountryTextField().getText();
+        String organization     = signatureView.getCertOrganizationTextField().getText();
+        String locality         = signatureView.getCertLocalityTextField().getText();
+        String state            = signatureView.getCertStateTextField().getText();
+        String country          = signatureView.getCertCountryTextField().getText();
 
         // 拼接参数
         StringBuilder command = new StringBuilder("keytool -genkey -v ");
@@ -110,9 +110,7 @@ public class SignatureViewEvent {
      * @param e 事件对象
      */
     public void signApkGlyphButtonOnMouseClick(MouseEvent e) {
-        FxConstant.FILE_CHOOSER.setTitle("选择APK");
-        FxConstant.FILE_CHOOSER.getExtensionFilters().add(FxConstant.APK_EXT_FILETER);
-        File file = FxConstant.FILE_CHOOSER.showOpenDialog(taskView.getRootPane().getScene().getWindow());
+        File file = FxUtil.showApkFileChooser("选择APK", taskView.getRootPane().getScene().getWindow());
         if (file != null) {
             signatureView.getSignApkTextField().setText(file.getAbsolutePath());
         }
@@ -124,8 +122,7 @@ public class SignatureViewEvent {
      * @param e 事件对象
      */
     public void signApkOutputGlyphButtonOnMouseClick(MouseEvent e) {
-        FxConstant.DIRECTORY_CHOOSER.setTitle("选择文件夹");
-        File file = FxConstant.DIRECTORY_CHOOSER.showDialog(taskView.getRootPane().getScene().getWindow());
+        File file = FxUtil.showDialog("选择文件夹", taskView.getRootPane().getScene().getWindow());
         if (file != null) {
             signatureView.getSignApkOutputTextField().setText(file.getAbsolutePath());
         }
@@ -150,10 +147,10 @@ public class SignatureViewEvent {
      * @param e 事件对象
      */
     public void signButtonOnMouseClick(MouseEvent e) {
-        File signApkFile = new File(signatureView.getSignApkTextField().getText());
-        String outputPath = signatureView.getSignApkOutputTextField().getText();
-        String keystore = signatureView.getSignCertComboBox().getSelectionModel().getSelectedItem();
-        boolean openDir = signatureView.getOpenDirCheckBox().isSelected();
+        File    signApkFile   = new File(signatureView.getSignApkTextField().getText());
+        String  outputPath    = signatureView.getSignApkOutputTextField().getText();
+        String  keystore      = signatureView.getSignCertComboBox().getSelectionModel().getSelectedItem();
+        boolean openDir       = signatureView.getOpenDirCheckBox().isSelected();
         boolean delSourceFile = signatureView.getDelSourceCheckBox().isSelected();
 
         ApkSignatureTask apkSignatureTask =

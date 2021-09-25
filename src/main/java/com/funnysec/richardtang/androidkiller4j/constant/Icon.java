@@ -75,5 +75,4 @@ public class Icon {
 
     // DeviceExplorerView
     public final static Glyph DEVICE_EXPLORER_VIEW_TAB = FONT_AWESOME.create(FontAwesome.Glyph.FOLDER).size(22);
-
 }

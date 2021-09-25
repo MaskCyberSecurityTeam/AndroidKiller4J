@@ -8,16 +8,13 @@ import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertDeviceOnlin
 import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertTab;
 import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertWorkbenchTab;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
-import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
-import com.funnysec.richardtang.androidkiller4j.constant.ProtocolString;
 import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager;
 import com.funnysec.richardtang.androidkiller4j.pojo.Apk;
 import com.funnysec.richardtang.androidkiller4j.task.ApkInspectShellTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkSignatureTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolCompileTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolDecompileTask;
-import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import com.funnysec.richardtang.androidkiller4j.view.SignatureView;
 import com.funnysec.richardtang.androidkiller4j.view.TaskView;
@@ -74,10 +71,7 @@ public class ToolkitViewEvent {
      * @param event 事件对象
      */
     public void openButtonOnMouseClick(MouseEvent event) {
-        // 选择APK
-        FxConstant.FILE_CHOOSER.setTitle("选择APK");
-        FxConstant.FILE_CHOOSER.getExtensionFilters().add(FxConstant.APK_EXT_FILETER);
-        File apkFile = FxConstant.FILE_CHOOSER.showOpenDialog(toolkitView.getRootPane().getScene().getWindow());
+        File apkFile = FxUtil.showApkFileChooser("选择APK", toolkitView.getRootPane().getScene().getWindow());
 
         // 未选中APK，该事件直接结束。
         if (FileUtil.isEmpty(apkFile)) {
@@ -124,9 +118,7 @@ public class ToolkitViewEvent {
      * @param event 事件对象
      */
     public void findShellButtonOnMouseClick(MouseEvent event) {
-        FxConstant.FILE_CHOOSER.setTitle("选择需要查壳的APK");
-        FxConstant.FILE_CHOOSER.getExtensionFilters().add(FxConstant.APK_EXT_FILETER);
-        File apkFile = FxConstant.FILE_CHOOSER.showOpenDialog(toolkitView.getRootPane().getScene().getWindow());
+        File apkFile = FxUtil.showApkFileChooser("选择需要查壳的APK", toolkitView.getRootPane().getScene().getWindow());
 
         // 未选中文件
         if (ObjectUtil.isNull(apkFile)) {
