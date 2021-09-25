@@ -6,7 +6,6 @@ import cn.hutool.core.swing.DesktopUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
-import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
 import com.funnysec.richardtang.androidkiller4j.task.ApkSignatureTask;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import com.funnysec.richardtang.androidkiller4j.view.SignatureView;

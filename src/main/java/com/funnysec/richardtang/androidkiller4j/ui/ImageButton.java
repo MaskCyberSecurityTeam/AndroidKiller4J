@@ -1,6 +1,5 @@
 package com.funnysec.richardtang.androidkiller4j.ui;
 
-import com.funnysec.richardtang.androidkiller4j.constant.Icon;
 import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

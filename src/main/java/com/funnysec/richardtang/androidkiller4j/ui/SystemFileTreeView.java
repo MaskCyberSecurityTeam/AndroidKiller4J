@@ -1,7 +1,5 @@
 package com.funnysec.richardtang.androidkiller4j.ui;
 
-
-import cn.hutool.core.io.FileUtil;
 import com.funnysec.richardtang.androidkiller4j.util.CommonUtil;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -66,7 +64,7 @@ public class SystemFileTreeView extends TreeView<File> {
      */
     public static Image getFileSystemIcon(File file) {
         // 先根据文件的后缀名从缓存中取数据
-        String key   = FileUtil.getSuffix(file);
+        String key   = CommonUtil.getFileSuffix(file);
         Image  image = fileSystemDefIconCache.get(key);
 
         if (image != null) {
@@ -76,7 +74,7 @@ public class SystemFileTreeView extends TreeView<File> {
         // 缓存中没有，调用api获取系统对应的默认图片对象
         // fileSystemView为空代表是MacOS系统
         Icon icon = (
-            fileSystemView == null ? jFileChooser.getUI().getFileView(jFileChooser).getIcon(file) : fileSystemView.getSystemIcon(file)
+                fileSystemView == null ? jFileChooser.getUI().getFileView(jFileChooser).getIcon(file) : fileSystemView.getSystemIcon(file)
         );
         BufferedImage bufferedImage = new BufferedImage(
                 icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB
@@ -123,8 +121,11 @@ public class SystemFileTreeView extends TreeView<File> {
             ObservableList<TreeItem<File>> children = super.getChildren();
             if (this.isNoLoadedChildren && this.isExpanded() && this.getValue().isDirectory()) {
                 this.isNoLoadedChildren = false;
-                for (File f : FileUtil.ls(getValue().getAbsolutePath())) {
-                    children.add(new SystemFileTreeItem(f));
+                File[] files = new File(getValue().getAbsolutePath()).listFiles();
+                if (files != null && files.length > 0) {
+                    for (File f : files) {
+                        children.add(new SystemFileTreeItem(f));
+                    }
                 }
             }
             return children;
