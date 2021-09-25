@@ -9,8 +9,6 @@ import lombok.Data;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Android设备管理类，基于Google-ddmlib开发包。
  *
@@ -44,9 +42,7 @@ public class AndroidDeviceManager {
      * 初始化ADB
      */
     private void initBridge() {
-        bridge = AndroidDebugBridge.createBridge(
-                ResourcePathConfig.ADB_BIN, false, 10L, TimeUnit.SECONDS
-        );
+        bridge = AndroidDebugBridge.createBridge(ResourcePathConfig.ADB_BIN, false);
     }
 
     /**

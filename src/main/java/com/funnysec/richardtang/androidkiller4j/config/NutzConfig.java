@@ -4,6 +4,11 @@ import org.nutz.ioc.Ioc;
 import org.nutz.ioc.impl.NutIoc;
 import org.nutz.ioc.loader.combo.ComboIocLoader;
 
+/**
+ * Nutz初始化配置类
+ *
+ * @author RichardTang
+ */
 public class NutzConfig {
 
     public static Ioc ioc;

@@ -1,8 +1,7 @@
 package com.funnysec.richardtang.androidkiller4j.config;
 
-import cn.hutool.system.SystemUtil;
 import com.funnysec.richardtang.androidkiller4j.constant.ProtocolString;
-import com.sun.jna.Platform;
+import com.funnysec.richardtang.androidkiller4j.util.CommonUtil;
 
 /**
  * 初始化获取项目WORK_DIR根路径，将根路径和所要用到的一些资源的文件夹拼接在一起。
@@ -12,7 +11,7 @@ import com.sun.jna.Platform;
 public class ResourcePathConfig {
 
     // WORKDIR
-    public static final String CURRENT_DIR = SystemUtil.getUserInfo().getCurrentDir();
+    public static final String CURRENT_DIR = System.getProperty("user.dir") + "/";
 
     // 该路径下用来存放adb、apktool.jar
     public static final String BIN = CURRENT_DIR + "bin/";
@@ -30,7 +29,7 @@ public class ResourcePathConfig {
     public static final String PROJECT = CURRENT_DIR + "project/";
 
     // 根据平台选择指定的ADB
-    public static final String ADB_BIN = Platform.isWindows() ? BIN + "adb-win/adb.exe" : BIN + "adb-mac/adb";
+    public static final String ADB_BIN = CommonUtil.isWindows() ? BIN + "adb-win/adb.exe" : BIN + "adb-mac/adb";
 
     // 默认的keystore文件路径
     public static final String DEFAULT_KEYSTORE = CONFIG + "/androidkiller4j.keystore";
@@ -42,5 +41,4 @@ public class ResourcePathConfig {
     public static final String STYLE_CSS = ProtocolString.FILE + ResourcePathConfig.CSS + "/style.css";
 
     public static final String UI_CSS = ResourcePathConfig.class.getResource("/css/androidkiller4j-ui.css").toExternalForm();
-
 }

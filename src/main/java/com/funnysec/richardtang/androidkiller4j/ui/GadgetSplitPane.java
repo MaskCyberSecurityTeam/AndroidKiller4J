@@ -106,7 +106,7 @@ public class GadgetSplitPane extends SplitPane {
     public void setBottomContent(Region bottomContent) {
         this.bottomContent = bottomContent;
         this.bottomContent.setMinHeight(0);
-        this.bottomContent.setPadding(new Insets(10, 0, 0, 0));
+        this.bottomContent.setPadding(new Insets(20, 0, 0, 0));
         stackPane.getChildren().addAll(this.bottomContent, fnToolBar);
     }
 

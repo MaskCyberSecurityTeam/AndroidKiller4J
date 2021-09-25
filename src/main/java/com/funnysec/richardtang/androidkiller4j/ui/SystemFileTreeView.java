@@ -2,7 +2,7 @@ package com.funnysec.richardtang.androidkiller4j.ui;
 
 
 import cn.hutool.core.io.FileUtil;
-import com.sun.jna.Platform;
+import com.funnysec.richardtang.androidkiller4j.util.CommonUtil;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.TreeCell;
@@ -35,7 +35,7 @@ public class SystemFileTreeView extends TreeView<File> {
 
     static {
         // 根据系统类型使用不通的获取图标的方案
-        if (Platform.isWindows()) {
+        if (CommonUtil.isWindows()) {
             fileSystemView = FileSystemView.getFileSystemView();
         } else {
             jFileChooser = new JFileChooser();

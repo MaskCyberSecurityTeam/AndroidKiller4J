@@ -92,7 +92,6 @@ public class ToolkitView extends IocView<AccordionTabPane> {
 
     @Override
     protected void initAttr() {
-
         systemTab.setClosable(false);
         deviceTab.setClosable(false);
         androidTab.setClosable(false);
@@ -109,7 +108,7 @@ public class ToolkitView extends IocView<AccordionTabPane> {
                 processButton, compileButton, installButton,
                 bashButton, fileExplorerButton
         );
-        deviceToolBar.getItems().addAll(deviceChoiceBox, deviceConnectButton, deviceRefreshButton);
+        deviceToolBar.getItems().addAll(deviceChoiceBox, deviceRefreshButton, deviceConnectButton);
 
         systemTab.setContent(indexToolBar);
         androidTab.setContent(androidToolBar);

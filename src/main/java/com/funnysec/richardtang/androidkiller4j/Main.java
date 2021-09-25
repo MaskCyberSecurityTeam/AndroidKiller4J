@@ -10,11 +10,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.nutz.ioc.Ioc;
 
 public class Main extends Application {
 
-    public  Ioc                  ioc = NutzConfig.ioc;
     private MainView             mainView;
     private ApplicationConfig    applicationConfig;
     private AndroidDeviceManager androidDeviceManager;
@@ -25,14 +23,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        mainView             = ioc.get(MainView.class);
-        applicationConfig    = ioc.get(ApplicationConfig.class);
-        androidDeviceManager = ioc.get(AndroidDeviceManager.class);
+        mainView             = NutzConfig.ioc.get(MainView.class);
+        applicationConfig    = NutzConfig.ioc.get(ApplicationConfig.class);
+        androidDeviceManager = NutzConfig.ioc.get(AndroidDeviceManager.class);
 
         // 应用名称和应用图标需要单独处理
         Scene scene = new Scene(mainView.getRootPane());
-        scene.getStylesheets().addAll(ResourcePathConfig.STYLE_CSS, ResourcePathConfig.UI_CSS);
-
         stage.setScene(scene);
         stage.setOnCloseRequest(e -> close());
         stage.setTitle(applicationConfig.getAppTitle());
@@ -41,6 +37,7 @@ public class Main extends Application {
         stage.setHeight(applicationConfig.getMainViewDefHeight());
         stage.setMinWidth(applicationConfig.getMainViewMinWidth());
         stage.setMinHeight(applicationConfig.getMainViewMinHeight());
+        scene.getStylesheets().addAll(ResourcePathConfig.STYLE_CSS, ResourcePathConfig.UI_CSS);
         stage.show();
     }
 

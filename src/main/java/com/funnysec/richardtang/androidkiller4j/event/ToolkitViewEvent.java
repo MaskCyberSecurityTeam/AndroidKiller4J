@@ -10,12 +10,14 @@ import com.funnysec.richardtang.androidkiller4j.aop.annotation.AssertWorkbenchTa
 import com.funnysec.richardtang.androidkiller4j.config.ResourcePathConfig;
 import com.funnysec.richardtang.androidkiller4j.constant.FxConstant;
 import com.funnysec.richardtang.androidkiller4j.constant.Icon;
+import com.funnysec.richardtang.androidkiller4j.constant.ProtocolString;
 import com.funnysec.richardtang.androidkiller4j.core.ddmlib.AndroidDeviceManager;
 import com.funnysec.richardtang.androidkiller4j.pojo.Apk;
 import com.funnysec.richardtang.androidkiller4j.task.ApkInspectShellTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkSignatureTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolCompileTask;
 import com.funnysec.richardtang.androidkiller4j.task.ApkToolDecompileTask;
+import com.funnysec.richardtang.androidkiller4j.ui.wrapper.ImageView;
 import com.funnysec.richardtang.androidkiller4j.util.FxUtil;
 import com.funnysec.richardtang.androidkiller4j.view.SignatureView;
 import com.funnysec.richardtang.androidkiller4j.view.TaskView;
@@ -169,7 +171,7 @@ public class ToolkitViewEvent {
     public void compileButtonOnMouseClick(MouseEvent event) {
         Object userData = taskView.getRootPane().getSelectionModel().getSelectedItem().getUserData();
 
-        Apk apk           = (Apk) userData;
+        Apk    apk           = (Apk) userData;
         String basePath      = apk.getBasePath();
         String unsignApkPath = basePath + "/dist/" + apk.getFileName();
         String signApkPath   = basePath + "/dist/sign_" + apk.getFileName();
@@ -275,8 +277,8 @@ public class ToolkitViewEvent {
             // 断开设备
 //            deviceLogReceiverManager.stop();
             androidDeviceManager.setDevice(null);
-            toolkitView.getDeviceConnectButton().setText("连接");
             toolkitView.getDeviceConnectButton().setGraphic(Icon.TOOLKIT_VIEW_CONNECT);
+            toolkitView.getDeviceConnectButton().setText("连接");
             toolkitView.getDeviceChoiceBox().getSelectionModel().clearSelection();
             System.out.println("设备已断开连接: " + device.getName());
             return;
@@ -292,8 +294,8 @@ public class ToolkitViewEvent {
         // 选项框中有选中设备，判断设备是否在线。
         if (device.isOnline()) {
             androidDeviceManager.setDevice(device);
-            toolkitView.getDeviceConnectButton().setText("断开连接");
             toolkitView.getDeviceConnectButton().setGraphic(Icon.TOOLKIT_VIEW_DISCONNECT);
+            toolkitView.getDeviceConnectButton().setText("断开");
             System.out.println("设备连接成功: " + device.getName());
         } else {
             System.out.println("设备连接失败: " + device.getName());

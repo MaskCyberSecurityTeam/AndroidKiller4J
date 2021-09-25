@@ -1,7 +1,5 @@
 package com.funnysec.richardtang.androidkiller4j.core.device.process;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.concurrency.GuardedBy;
 import com.android.ddmlib.IDevice;
 import com.android.ddmlib.MultiLineReceiver;
 
@@ -21,10 +19,9 @@ public class ProcessMessageReceiverTask implements Runnable {
     private final ProcessMessageParser mParser;
     private final AtomicBoolean mCancelled;
 
-    @GuardedBy("this")
     private final Set<ProcessMessageListener> mListeners = new HashSet<ProcessMessageListener>();
 
-    public ProcessMessageReceiverTask(@NonNull IDevice device) {
+    public ProcessMessageReceiverTask(IDevice device) {
         mDevice = device;
 
         mReceiver = new ProcessMessageOutputReceiver();
@@ -65,7 +62,7 @@ public class ProcessMessageReceiverTask implements Runnable {
         }
 
         @Override
-        public void processNewLines(@NonNull String[] lines) {
+        public void processNewLines(String[] lines) {
             if (!mCancelled.get()) {
                 processLogLines(lines);
             }

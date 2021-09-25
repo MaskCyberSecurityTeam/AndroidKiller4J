@@ -30,7 +30,7 @@ public class AssertTabInterceptor implements MethodInterceptor {
         if (tab != null) {
             // 直接显示对应的Tab窗口
             taskView.getRootPane().getSelectionModel().select(tab);
-            chain.doChain();
         }
+        chain.doChain();
     }
 }

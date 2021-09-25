@@ -24,8 +24,8 @@ public class ControlView extends IocView<TabPane> {
         runLogTextArea = new ConsoleTextArea();
 
         // 将java的日志信息重定向到runLogTextArea组件中
-        System.setOut(runLogTextArea.getConsoleTextAreaPrintStream());
-        System.setErr(runLogTextArea.getConsoleTextAreaPrintStream());
+//        System.setOut(runLogTextArea.getConsoleTextAreaPrintStream());
+//        System.setErr(runLogTextArea.getConsoleTextAreaPrintStream());
     }
 
     // 日志Tab
@@ -38,13 +38,13 @@ public class ControlView extends IocView<TabPane> {
 
     @Override
     protected void initAttr() {
+        runLogTab.setClosable(false);
         getRootPane().setSide(Side.BOTTOM);
     }
 
     @Override
     protected void initLayout() {
         // 避免TextArea里的内容过长，导致Tab覆盖住。
-        runLogTextArea.setPadding(new Insets(0, 0, 9, 0));
         runLogTab.setContent(runLogTextArea);
         getRootPane().getTabs().addAll(runLogTab);
     }

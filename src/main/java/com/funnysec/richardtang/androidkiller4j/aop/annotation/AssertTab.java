@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 根据TabId校验是否已打开指定Tab
+ * 如果已经打开则直接显示对应的Tab不再打开新的Tab
  *
  * @author RichardTang
  */

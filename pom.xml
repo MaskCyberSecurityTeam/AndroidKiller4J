@@ -10,25 +10,19 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <snakeyaml.version>1.28</snakeyaml.version>
-        <hutool.version>5.7.8</hutool.version>
         <lombok.version>1.18.20</lombok.version>
         <richtextfx.version>0.10.6</richtextfx.version>
-        <ddmlib.version>27.2.2</ddmlib.version>
+        <ddmlib.version>25.3.0</ddmlib.version>
         <terminalfx.version>1.0.8</terminalfx.version>
-        <controlsfx.version>11.1.0</controlsfx.version>
+        <controlsfx.version>8.40.15</controlsfx.version>
+        <hutool.version>5.7.8</hutool.version>
         <nutz.version>1.r.68.v20190220</nutz.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
@@ -71,28 +65,27 @@
             <artifactId>nutz</artifactId>
             <version>${nutz.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
     </dependencies>
 
     <!-- 需要忽略ssl证书错误问题 -->
     <repositories>
         <repository>
-            <id>terminalfx-repo</id>
-            <url>https://github.com/javaterminal/terminalfx/raw/master/releases</url>
+            <id>public</id>
+            <url>https://maven.aliyun.com/repository/public</url>
         </repository>
         <repository>
             <id>jetbrains-intellij-dependencies</id>
             <url>https://packages.jetbrains.team/maven/p/ij/intellij-dependencies</url>
         </repository>
         <repository>
-            <id>google</id>
-            <url>https://maven.aliyun.com/repository/google</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <id>terminalfx-repo</id>
+            <url>https://github.com/javaterminal/terminalfx/raw/master/releases</url>
         </repository>
     </repositories>
-
 </project>
