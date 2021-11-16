@@ -134,7 +134,7 @@ public class ToolkitView extends JTabbedPane implements InitializingBean {
      * 初始化事件
      */
     private void initEvent() {
-        logButton.addActionListener(event -> toolkitViewEvent.adbButtonOnMouseClick(event));
+        logButton.addActionListener(event -> toolkitViewEvent.logButtonOnMouseClick(event));
         adbButton.addActionListener(event -> toolkitViewEvent.adbButtonOnMouseClick(event));
         openButton.addActionListener(event -> toolkitViewEvent.openButtonOnMouseClick(event));
         aboutButton.addActionListener(event -> toolkitViewEvent.aboutButtonOnMouseClick(event));
