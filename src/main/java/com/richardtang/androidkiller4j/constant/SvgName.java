@@ -1,0 +1,41 @@
+package com.richardtang.androidkiller4j.constant;
+
+public interface SvgName {
+    String F          = "f.svg";
+    String APK        = "apk.svg";
+    String BUG        = "bug.svg";
+    String ADD        = "add.svg";
+    String MOVE       = "move.svg";
+    String TASK       = "task.svg";
+    String ABOUT      = "about.svg";
+    String SYSTEM     = "system.svg";
+    String UPLOAD     = "upload.svg";
+    String REMOVE     = "remove.svg";
+    String SEARCH     = "search.svg";
+    String CUSTOM     = "custom.svg";
+    String DEVICE     = "device.svg";
+    String ANDROID    = "android.svg";
+    String CONNECT    = "connect.svg";
+    String REFRESH    = "refresh.svg";
+    String PROCESS    = "process.svg";
+    String COMPILE    = "compile.svg";
+    String INSTALL    = "install.svg";
+    String SETTING    = "setting.svg";
+    String DOWNLOAD   = "download.svg";
+    String TERMINAL   = "terminal.svg";
+    String SIGNATURE  = "signature.svg";
+    String DIRECTORY  = "directory.svg";
+    String DISCONNECT = "disconnect.svg";
+    String MESSAGE    = "message.svg";
+    String EYE        = "eye.svg";
+    String RESULT     = "result.svg";
+    String SAVE       = "save.svg";
+    String JAVA       = "java.svg";
+    String LETTER_A   = "letter-a.svg";
+    String LETTER_U   = "letter-u.svg";
+    String LETTER_R   = "letter-r.svg";
+    String LETTER_S   = "letter-s.svg";
+    String LETTER_I   = "letter-i.svg";
+    String INFO       = "info.svg";
+    String MANAGER    = "manager.svg";
+}

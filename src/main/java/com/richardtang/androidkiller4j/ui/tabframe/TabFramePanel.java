@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 
 /**
  * TabFrame功能的主面板，组合Content和Bar两块的内容。
@@ -37,13 +36,20 @@ public class TabFramePanel extends JPanel implements MouseListener, MouseMotionL
     private JPanel contentPanel = new JPanel(new BorderLayout());
 
     /**
+     * 空参构造，适配一些反射场景使用。可以通过addTabFrameItem来添加选项卡。
+     */
+    public TabFramePanel() {
+        this(new TabFrameItem[]{});
+    }
+
+    /**
      * 根据TabFrameItem来创建TabFrame，每一个Item代表一个功能选项。
      *
      * @param tabFrameItems 需要添加到ToolBar的多个TabFrameItem
      */
     public TabFramePanel(TabFrameItem... tabFrameItems) {
         this.tabFrameItems = tabFrameItems;
-        this.tabFrameBar   = new TabFrameBar();
+        this.tabFrameBar = new TabFrameBar();
         for (TabFrameItem item : tabFrameItems) {
             addTabFrameItem(item);
         }
@@ -59,7 +65,7 @@ public class TabFramePanel extends JPanel implements MouseListener, MouseMotionL
      */
     public void addTabFrameItem(TabFrameItem tabFrameItem) {
         // 取到ToolBar上的按钮和按钮对应的Content
-        JToggleButton     itemButton  = tabFrameItem.getToolBarItemBtn();
+        JToggleButton itemButton = tabFrameItem.getToolBarItemBtn();
         TabFrameItemPanel itemContent = tabFrameItem.getTabFrameItemPanel();
 
         // 给内容组件添加鼠标拖拽改变大小事件

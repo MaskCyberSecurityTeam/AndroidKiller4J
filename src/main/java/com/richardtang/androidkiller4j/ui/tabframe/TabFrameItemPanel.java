@@ -2,6 +2,7 @@ package com.richardtang.androidkiller4j.ui.tabframe;
 
 import com.formdev.flatlaf.icons.FlatTreeExpandedIcon;
 import com.formdev.flatlaf.ui.FlatEmptyBorder;
+import com.richardtang.androidkiller4j.ui.border.MLineBorder;
 
 import javax.swing.*;
 import java.awt.*;

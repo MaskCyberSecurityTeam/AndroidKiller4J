@@ -1,6 +1,7 @@
 package com.richardtang.androidkiller4j.ui.tabframe;
 
 import com.formdev.flatlaf.util.UIScale;
+import com.richardtang.androidkiller4j.ui.border.MLineBorder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

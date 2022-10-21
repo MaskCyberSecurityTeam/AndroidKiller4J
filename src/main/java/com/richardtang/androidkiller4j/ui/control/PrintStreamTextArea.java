@@ -14,21 +14,26 @@ import java.io.PrintStream;
 @Data
 public class PrintStreamTextArea extends JTextArea {
 
-    private PrintStream printStream;
+    private PrintStream printStream = new PrintStream(new ByteArrayOutputStream()) {
+
+        @Override
+        public void write(byte[] buf, int off, int len) {
+            print(new String(buf, off, len));
+        }
+
+        /**
+         * 将数据追到到JTextArea的文本域中
+         *
+         * @param s 写入的字符
+         */
+        @Override
+        public void print(String s) {
+            SwingUtilities.invokeLater(() -> PrintStreamTextArea.this.append(s));
+        }
+    };
 
     public PrintStreamTextArea() {
+        // 定义文本域不可编辑
         setEditable(false);
-
-        printStream = new PrintStream(new ByteArrayOutputStream()) {
-            @Override
-            public void write(byte[] buf, int off, int len) {
-                print(new String(buf, off, len));
-            }
-
-            @Override
-            public void print(String s) {
-                SwingUtilities.invokeLater(() -> PrintStreamTextArea.this.append(s));
-            }
-        };
     }
 }

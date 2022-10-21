@@ -1,11 +1,6 @@
 package com.richardtang.androidkiller4j.view;
 
-import com.richardtang.androidkiller4j.view.task.TaskView;
-import com.richardtang.androidkiller4j.view.toolkit.ToolkitView;
-import lombok.Data;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.richardtang.androidkiller4j.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,27 +10,12 @@ import java.awt.*;
  *
  * @author RichardTang
  */
-@Data
-@Component
-public class MainView extends JPanel implements InitializingBean {
+public final class MainView extends JPanel {
 
-    // 任务视图
-    @Autowired
-    private TaskView taskView;
-
-    // 工具栏视图
-    @Autowired
-    private ToolkitView toolkitView;
-
-    // 控制台视图
-    @Autowired
-    private ConsoleView consoleView;
-
-    @Override
-    public void afterPropertiesSet() {
+    public MainView() {
         setLayout(new BorderLayout());
-        add(toolkitView, BorderLayout.NORTH);
-        add(taskView, BorderLayout.CENTER);
-        add(consoleView, BorderLayout.SOUTH);
+        add(MainWindow.taskView, BorderLayout.CENTER);
+        add(MainWindow.toolkitView, BorderLayout.NORTH);
+        add(MainWindow.consoleView, BorderLayout.SOUTH);
     }
 }

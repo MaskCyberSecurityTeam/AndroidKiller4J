@@ -1,0 +1,63 @@
+<assembly>
+    <!-- AndroidKiller4J-${project.version}.zip -->
+    <id>${project.version}</id>
+
+    <!-- 打包文件的类型，如果要输出多个类型的打包文件，则定义多个 -->
+    <formats>
+        <format>dir</format>
+        <format>zip</format>
+        <format>tar.gz</format>
+    </formats>
+
+    <!-- 将文件存储至生成的包中的根目录下 -->
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <!-- jar包依赖 -->
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>libs</outputDirectory>
+            <unpack>false</unpack>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <!-- 项目要用到的一些依赖 -->
+        <fileSet>
+            <directory>${project.basedir}/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/config</directory>
+            <outputDirectory>config</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/logs</directory>
+            <outputDirectory>logs</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/project</directory>
+            <outputDirectory>project</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/projectSrc</directory>
+            <outputDirectory>projectSrc</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>startup.sh</include>
+                <include>startup.bat</include>
+            </includes>
+        </fileSet>
+        <!-- 把当前项目的jar文件进行打包 -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>/libs/</outputDirectory>
+            <includes>
+                <include>AndroidKiller4J.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>

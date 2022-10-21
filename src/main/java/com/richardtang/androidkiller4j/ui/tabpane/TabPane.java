@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.function.BiConsumer;
+import java.util.function.IntConsumer;
 
 /**
  * 进一步封装JTabbedPane，主要提供Tab的默认关闭按钮，以及Tab页可以挂靠数据对象。
@@ -18,13 +19,8 @@ public class TabPane extends JTabbedPane {
     private LinkedHashMap<String, Tab> tabContainer = new LinkedHashMap<>();
 
     public TabPane() {
-        // 默认所有Tab都启用关闭按钮
-        putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSABLE, true);
-        // 配置Tab默认就显示关闭按钮
-        putClientProperty(
-                FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK,
-                (BiConsumer<JTabbedPane, Integer>) (tabPane, tabIndex) -> removeTabAt(tabIndex)
-        );
+        // 配置Tab默认就显示关闭按钮的动作
+        this.putClientProperty(FlatClientProperties.TABBED_PANE_TAB_CLOSE_CALLBACK, (IntConsumer) this::removeTabAt);
     }
 
     /**
@@ -53,13 +49,13 @@ public class TabPane extends JTabbedPane {
         addTab(new Tab(title, icon, component));
     }
 
-    public void addTab(String title, Icon icon, Component component, Boolean close) {
-        addTab(new Tab(title, icon, component, close));
-    }
-
     @Override
     public void addTab(String title, Icon icon, Component component, String tip) {
         addTab(new Tab(title, icon, component, tip));
+    }
+
+    public void addTab(String title, Icon icon, Component component, Boolean close) {
+        addTab(new Tab(title, icon, component, close));
     }
 
     /**
@@ -68,14 +64,9 @@ public class TabPane extends JTabbedPane {
      * @param title 需要被删除的tab对应的标题
      */
     public void removeTabByTitle(String title) {
-        for (String key : tabContainer.keySet()) {
-            Tab tab = tabContainer.get(key);
-            if (tab.getTitle().equals(title)) {
-                tabContainer.remove(key);
-                remove(tab.getComponent());
-                return;
-            }
-        }
+        Tab tab = tabContainer.get(title);
+        remove(tab.getComponent());
+        tabContainer.remove(title);
     }
 
     /**
@@ -102,13 +93,7 @@ public class TabPane extends JTabbedPane {
      * @return 对应title的tab，返回null为没找到该tab。
      */
     public Tab getTabByTitle(String title) {
-        for (String key : tabContainer.keySet()) {
-            Tab tab = tabContainer.get(key);
-            if (tab.getTitle().equals(title)) {
-                return tabContainer.get(key);
-            }
-        }
-        return null;
+        return tabContainer.get(title);
     }
 
     /**
@@ -128,6 +113,16 @@ public class TabPane extends JTabbedPane {
     }
 
     /**
+     * 获取选中的Tab的标题
+     *
+     * @return 选中的Tab的标题
+     */
+    public String getSelectedTabTitle() {
+        int selectedIndex = getSelectedIndex();
+        return getTitleAt(selectedIndex);
+    }
+
+    /**
      * 根据Tab的标题显示对应的Tab
      *
      * @param title 需要显示的Tab对应的标题
@@ -141,5 +136,14 @@ public class TabPane extends JTabbedPane {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取Tab数量
+     *
+     * @return tab数量
+     */
+    public int getTabSize() {
+        return tabContainer.size();
     }
 }

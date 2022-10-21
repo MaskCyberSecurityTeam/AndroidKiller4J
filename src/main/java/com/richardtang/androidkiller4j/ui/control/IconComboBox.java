@@ -13,13 +13,46 @@ import java.util.Vector;
  */
 public class IconComboBox extends JComboBox<IconComboBox.IconComboBoxData> {
 
+    // ComboBox中的选项
     private Vector<IconComboBoxData> vector = new Vector<>();
+
+    // 默认选项
+    private IconComboBoxData defaultOption;
+
+    // 默认选项id
+    public static final String DEFAULT_OPTION_ID = "DEFAULT";
 
     public IconComboBox() {
         setModel(new DefaultComboBoxModel<>(vector));
         setRenderer(new IconComboBoxCellRender());
     }
 
+    /**
+     * 带有默认选项的ComboBox,并默认选中。
+     *
+     * @param defaultOption 默认选项
+     */
+    public IconComboBox(IconComboBoxData defaultOption) {
+        this();
+        this.defaultOption = defaultOption;
+        addItem(defaultOption);
+        setSelectedIndex(0);
+    }
+
+    /**
+     * 带有默认选项的ComboBox,并默认选中。
+     *
+     * @param defaultOptionText 默认选项的文本
+     */
+    public IconComboBox(String defaultOptionText) {
+        this(new IconComboBox.IconComboBoxData(DEFAULT_OPTION_ID, defaultOptionText));
+    }
+
+    /**
+     * 根据id删除选项
+     *
+     * @param id 选项的id
+     */
     public void removeItemById(String id) {
         int index = -1;
         for (int i = 0; i < vector.size(); i++) {
@@ -33,6 +66,20 @@ public class IconComboBox extends JComboBox<IconComboBox.IconComboBoxData> {
         }
     }
 
+    /**
+     * 删除全部，当存在默认选项时保留默认选项。
+     */
+    @Override
+    public void removeAllItems() {
+        super.removeAllItems();
+        if (defaultOption != null) {
+            addItem(defaultOption);
+        }
+    }
+
+    /**
+     * 单元格渲染
+     */
     public static class IconComboBoxCellRender extends JLabel implements ListCellRenderer<IconComboBoxData> {
 
         public IconComboBoxCellRender() {
@@ -58,6 +105,9 @@ public class IconComboBox extends JComboBox<IconComboBox.IconComboBoxData> {
         }
     }
 
+    /**
+     * 选项实体
+     */
     @Data
     public static class IconComboBoxData {
 
@@ -75,7 +125,7 @@ public class IconComboBox extends JComboBox<IconComboBox.IconComboBoxData> {
         }
 
         public IconComboBoxData(String id, String text, Icon icon, Object data) {
-            this.id   = id;
+            this.id = id;
             this.text = text;
             this.icon = icon;
             this.data = data;

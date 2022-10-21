@@ -11,17 +11,9 @@ import javax.swing.text.PlainDocument;
  */
 public class NumberDocument extends PlainDocument {
 
-    public void insertString(int offs, String str, AttributeSet atts)
-            throws BadLocationException {
-        if (!Character.isDigit(str.charAt(0))) {
-            return;
-        } else {
+    public void insertString(int offs, String str, AttributeSet atts) throws BadLocationException {
+        if (Character.isDigit(str.charAt(0))) {
             super.insertString(offs, str, atts);
-            return;
         }
-    }
-
-    public NumberDocument() {
-
     }
 }

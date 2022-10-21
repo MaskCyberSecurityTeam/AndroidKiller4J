@@ -1,22 +1,18 @@
 package com.richardtang.androidkiller4j.bean;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
-import com.richardtang.androidkiller4j.util.ControlUtil;
+import com.richardtang.androidkiller4j.constant.Size;
+import com.richardtang.androidkiller4j.constant.Suffix;
+import com.richardtang.androidkiller4j.util.*;
 import lombok.Data;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.yaml.snakeyaml.Yaml;
 
 import javax.swing.*;
 import javax.xml.xpath.XPathConstants;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 /**
@@ -29,7 +25,7 @@ import java.util.*;
 @SuppressWarnings("all")
 public class Apk {
 
-    // 项目APK解包后的根路径
+    // APK解包后的根路径
     private String basePath;
     // APK对应的ICON图标路径
     private String iconPath;
@@ -45,6 +41,8 @@ public class Apk {
     private String targetSdkVersion;
     // 最小版本sdk
     private String minSdkVersion;
+    // APK解包的日期
+    private Date   decodeApkDate;
 
     // string.xml文档对象
     private Document            stringsDocument;
@@ -62,48 +60,37 @@ public class Apk {
     // 当前APK应用所有的UsesPermission组件值
     private List<String> usesPermission;
 
-    // APK解包的日期
-    private Date decodeApkDate;
-
-    private static final Yaml yaml = new Yaml();
-
-    // 几个文件
-    private static final String APKTOOL_YML               = "/apktool.yml";
-    private static final String STRINGS_DOCUMENT          = "/res/values/strings.xml";
-    private static final String ANDROID_MANIFEST_DOCUMENT = "/AndroidManifest.xml";
+    // 数据来源文件
+    private final String APKTOOL_YML               = "/apktool.yml";
+    private final String STRINGS_DOCUMENT          = "/res/values/strings.xml";
+    private final String ANDROID_MANIFEST_DOCUMENT = "/AndroidManifest.xml";
 
     // XPath
-    private static final String APP_NAME_XPATH      = "/resources/string[@name='app_name']/text()";
-    private static final String APP_ICON_XPATH      = "/manifest/application/@android:icon";
-    private static final String PACKAGE_NAME_XPATH  = "/manifest/@package";
-    private static final String MAIN_ACTIVITY_XPATH = "/manifest/application/activity[2]/@android:name";
+    private final String APP_NAME_XPATH     = "/resources/string[@name='app_name']/text()";
+    private final String APP_ICON_XPATH     = "/manifest/application/@android:icon";
+    private final String PACKAGE_NAME_XPATH = "/manifest/@package";
 
-    // APK中存储图标的路径根据铺面大小不同会分别存储在不同目录中
-    private static final List<String> ICON_DIR = Arrays.asList(
-            "mipmap-hdpi", "mipmap-mdpi", "mipmap-xhdpi", "mipmap-xxhdpi", "mipmap-xxxhdpi",
-            "drawable-hdpi", "drawable-mdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"
-    );
+    // 入口类
+    private final String MAIN_ACTIVITY_XPATH = "/manifest/application/activity/intent-filter/action[@android:name=\"android.intent.action.MAIN\"]/../../@android:name";
+
+    // APK中存储图标的路径根据屏幕大小不同会分别存储在不同目录中
+    private final List<String> ICON_DIR = Arrays.asList("mipmap-hdpi", "mipmap-mdpi", "mipmap-xhdpi", "mipmap-xxhdpi", "mipmap-xxxhdpi", "drawable-hdpi", "drawable-mdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi");
 
     public Apk(String basePath) {
-        this.basePath           = basePath;
-        apktoolYmlMap           = getApkToolYmlToMap();
-        stringsDocument         = XmlUtil.readXML(basePath + STRINGS_DOCUMENT);
+        this.basePath = basePath;
+        apktoolYmlMap = YamlUtils.fileToMap(basePath + APKTOOL_YML);
+        stringsDocument = XmlUtil.readXML(basePath + STRINGS_DOCUMENT);
         androidManifestDocument = XmlUtil.readXML(basePath + ANDROID_MANIFEST_DOCUMENT);
     }
 
     /**
-     * 获取Apk解包的时间，通过读取apktool生成的Yml文件来判断解包的时间。如果读取失败则以当前时间为准
+     * 以apktool.yml文件的创建时间作为apk解包的时间。
      *
      * @return APK解包的时间
      */
     public Date getDecodeApkDate() {
         if (decodeApkDate == null) {
-            try {
-                BasicFileAttributes attr = FileUtil.getAttributes(Paths.get(basePath + APKTOOL_YML), false);
-                decodeApkDate = DateUtil.date(attr.creationTime().toMillis()).toJdkDate();
-            } catch (Exception e) {
-                decodeApkDate = new Date();
-            }
+            decodeApkDate = FileUtils.creationTime(basePath + APKTOOL_YML);
         }
         return decodeApkDate;
     }
@@ -145,6 +132,15 @@ public class Apk {
     }
 
     /**
+     * 获取应用名称，如: XXX.apk 输出为 XXX。
+     *
+     * @return 获取应用的简单名称
+     */
+    public String getFileSimpleName() {
+        return getFileName().replace(Suffix.POINT_APK, "");
+    }
+
+    /**
      * 从AndroidManifest.xml文件中读取主Activity
      *
      * @return 主Activity名称
@@ -169,7 +165,7 @@ public class Apk {
 
         // 查找图标
         for (String dir : ICON_DIR) {
-            String iconName     = getDocByXPathStrVal(APP_ICON_XPATH).split("/")[1];
+            String iconName = getDocByXPathStrVal(APP_ICON_XPATH).split("/")[1];
             String tempIconPath = String.format("%s/res/%s/%s.png", basePath, dir, iconName);
 
             if (FileUtil.exist(tempIconPath)) {
@@ -190,25 +186,35 @@ public class Apk {
      * @return Icon图标对象
      */
     public Icon getImageIcon() {
-        return getImageIcon(20, 20);
+        return getImageIcon(Size.BIG);
     }
 
     /**
      * 根据IconPath来返回一个ImageIcon对象。
      *
-     * @param width  图片宽度
-     * @param height 图片高度
+     * @param wh 图片宽度高度
      * @return Icon图标对象
      */
-    public Icon getImageIcon(int width, int height) {
+    public Icon getImageIcon(int wh) {
         String iconPath = getIconPath();
+
+        // Apk未带图标,使用默认图标。
         if (iconPath.contains("apk.svg")) {
-            // Apk未带图标,使用默认图标。
-            return ControlUtil.getSVGIcon(iconPath, width, height);
+            return ControlUtils.getSVGIcon(iconPath, wh, wh);
         } else {
             // 带图标情况下
-            return ControlUtil.getImageIcon(iconPath);
+            return ControlUtils.getImageIcon(iconPath, wh);
         }
+    }
+
+    /**
+     * 根据IconPath来返回一个JLabel包装的ImageIcon对象。
+     *
+     * @param wh 图片宽度高度
+     * @return JLabel包装的ImageIcon对象。
+     */
+    public JLabel getImageIconLabel(int wh) {
+        return new JLabel(getImageIcon(70));
     }
 
     /**
@@ -219,6 +225,7 @@ public class Apk {
     public String getMinSdkVersion() {
         if (StrUtil.isEmpty(minSdkVersion)) {
             Object sdkInfo = apktoolYmlMap.get("sdkInfo");
+            // 如果未读取到SDK信息，则返回0。
             minSdkVersion = sdkInfo != null ? ((HashMap<String, String>) sdkInfo).get("minSdkVersion") : "0";
         }
         return minSdkVersion;
@@ -232,26 +239,10 @@ public class Apk {
     public String getTargetSdkVersion() {
         if (StrUtil.isEmpty(targetSdkVersion)) {
             Object sdkInfo = apktoolYmlMap.get("sdkInfo");
+            // 如果未读取到SDK信息，则返回0。
             targetSdkVersion = sdkInfo != null ? ((HashMap<String, String>) sdkInfo).get("targetSdkVersion") : "0";
         }
         return targetSdkVersion;
-    }
-
-    /**
-     * 将apktool.yml文件中的值转成map键值对
-     *
-     * @return apktool对应的map键值对
-     */
-    public Map<String, Object> getApkToolYmlToMap() {
-        File apktoolFIle = new File(basePath + APKTOOL_YML);
-        if (FileUtil.isNotEmpty(apktoolFIle)) {
-            try {
-                return yaml.loadAs(new FileInputStream(apktoolFIle), Map.class);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return new HashMap<>();
     }
 
     /**
@@ -304,15 +295,17 @@ public class Apk {
 
     /**
      * 从AndroidManifest.xml文件中以给定的节点名称作为条件，获取对应属性的值，并存储到数组中。
-     * foo: getMainFestFileElesAttrValue("activity", "android:name"); 获取所有Activity节点的android:name属性值。
+     * foo:
+     * getMainFestFileElesAttrValue("activity", "android:name");
+     * 获取所有Activity节点的android:name属性值。
      *
      * @param eleName  作为条件的节点名称
      * @param attrName 要获取的节点属性名称
      * @return 对应的属性值结果集合
      */
     public ArrayList<String> getMainFestFileElesAttrValue(String eleName, String attrName) {
-        ArrayList<String> result   = new ArrayList<>();
-        NodeList          nodeList = androidManifestDocument.getElementsByTagName(eleName);
+        ArrayList<String> result = new ArrayList<>();
+        NodeList nodeList = androidManifestDocument.getElementsByTagName(eleName);
         for (int i = 0; i < nodeList.getLength(); i++) {
             result.add(nodeList.item(i).getAttributes().getNamedItem(attrName).getNodeValue());
         }
