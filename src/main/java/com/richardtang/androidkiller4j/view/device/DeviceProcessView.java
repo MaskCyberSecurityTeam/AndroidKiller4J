@@ -2,6 +2,7 @@ package com.richardtang.androidkiller4j.view.device;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.android.ddmlib.IDevice;
+import com.formdev.flatlaf.FlatClientProperties;
 import com.richardtang.androidkiller4j.ddmlib.process.ProcessMessage;
 import com.richardtang.androidkiller4j.ddmlib.process.ProcessMessageListener;
 import com.richardtang.androidkiller4j.ddmlib.process.ProcessMessageReceiverTask;
@@ -35,7 +36,7 @@ public class DeviceProcessView extends CommonTablePanel<ProcessMessage> {
         this.iDevice = iDevice;
 
         // 设置按钮为正方形
-        switchButton.putClientProperty("JButton.buttonType", "square");
+        switchButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "square");
         toolBarPanel.add(switchButton);
 
         // 绑定事件
