@@ -6,6 +6,7 @@ import com.richardtang.androidkiller4j.ddmlib.process.ProcessMessage;
 import com.richardtang.androidkiller4j.ddmlib.process.ProcessMessageListener;
 import com.richardtang.androidkiller4j.ddmlib.process.ProcessMessageReceiverTask;
 import com.richardtang.androidkiller4j.ui.action.ClickAction;
+import com.richardtang.androidkiller4j.ui.action.ClickActionInstaller;
 import com.richardtang.androidkiller4j.ui.panel.CommonTablePanel;
 import lombok.Data;
 
@@ -36,6 +37,9 @@ public class DeviceProcessView extends CommonTablePanel<ProcessMessage> {
         // 设置按钮为正方形
         switchButton.putClientProperty("JButton.buttonType", "square");
         toolBarPanel.add(switchButton);
+
+        // 绑定事件
+        ClickActionInstaller.bind(this);
     }
 
     @Override
