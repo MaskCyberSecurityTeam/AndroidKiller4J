@@ -59,4 +59,13 @@ public class TabFrameBar extends JPanel {
     public ArrayList<JToggleButton> getToolBarItems() {
         return toolBarItems;
     }
+
+    /**
+     * 添加组件之Bar的右下角
+     *
+     * @param component 需要添加的组件
+     */
+    public void addBarRightItem(JComponent component) {
+        add(component, BorderLayout.EAST);
+    }
 }

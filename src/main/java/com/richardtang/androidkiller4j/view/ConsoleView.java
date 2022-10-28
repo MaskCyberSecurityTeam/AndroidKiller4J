@@ -1,6 +1,7 @@
 package com.richardtang.androidkiller4j.view;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.richardtang.androidkiller4j.MainWindow;
 import com.richardtang.androidkiller4j.constant.SvgName;
 import com.richardtang.androidkiller4j.ui.action.ClickActionInstaller;
 import com.richardtang.androidkiller4j.ui.control.PrintStreamTextArea;
@@ -40,18 +41,34 @@ public final class ConsoleView extends TabFramePanel {
     private final JToggleButton searchResultToggleButton = new JToggleButton("搜索结果", SEARCH_SVG_ICON);
     private final TabFrameItem  searchResultTabFrameItem = new TabFrameItem(searchResultToggleButton, searchResultSrollPanel);
 
+    // 加载条
+    private final JProgressBar loadingProgressBar = new JProgressBar();
+
     public ConsoleView() {
-         System.setOut(printStreamTextArea.getPrintStream());
-         System.setErr(printStreamTextArea.getPrintStream());
+        System.setOut(printStreamTextArea.getPrintStream());
+        System.setErr(printStreamTextArea.getPrintStream());
 
         // 添加2个默认的Item，消息和搜索结果！
         addTabFrameItem(logTabFrameItem);
         addTabFrameItem(searchResultTabFrameItem);
 
+        // 添加进度条样式
+        loadingProgressBar.setStringPainted(true);
+        JPanel loadingProgressBarPanel = new JPanel();
+        loadingProgressBarPanel.add(loadingProgressBar);
+        getTabFrameBar().addBarRightItem(loadingProgressBarPanel);
+
         // 绑定事件
         ClickActionInstaller.bind(this);
     }
 
+    /**
+     * 设置WorkbenchView试图的文件搜索结果
+     *
+     * @param root          根节点
+     * @param keyword       搜索的关键字
+     * @param workbenchView 对应的Workbench试图
+     */
     public void setSearchResultRoot(FileContentHighlightNode root, String keyword, WorkbenchView workbenchView) {
         FileContentHighlightTree tree = new FileContentHighlightTree(root, keyword);
         tree.addTreeSelectionListener(e -> {
@@ -80,5 +97,27 @@ public final class ConsoleView extends TabFramePanel {
             }
         });
         searchResultSrollPanel.getViewport().add(tree);
+    }
+
+    /**
+     * 进度条加载开始
+     *
+     * @param msg 需要显示的信息
+     */
+    public synchronized void startLoadingProgressBar(String msg) {
+        loadingProgressBar.setValue(1);
+        loadingProgressBar.setIndeterminate(true);
+        loadingProgressBar.setString(msg);
+    }
+
+    /**
+     * 进度条加载停止
+     *
+     * @param msg 需要显示的信息
+     */
+    public synchronized void stopLoadingProgressBar(String msg) {
+        loadingProgressBar.setValue(100);
+        loadingProgressBar.setIndeterminate(false);
+        loadingProgressBar.setString(msg);
     }
 }

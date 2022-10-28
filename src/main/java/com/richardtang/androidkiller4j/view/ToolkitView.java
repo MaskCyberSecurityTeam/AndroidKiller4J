@@ -128,6 +128,8 @@ public final class ToolkitView extends JTabbedPane {
      * @param apkFile 需要反编译的apk
      */
     public void apkDecompiler(File apkFile) {
+        MainWindow.consoleView.startLoadingProgressBar("APK反编译中...");
+
         // 以APK的名称作为反编译后的输出目录，除去后边的.apk后缀。
         String apkName = apkFile.getName().replace(Suffix.POINT_APK, "");
         String apkToolDecompilerOutputDir = R.PROJECT_DIR + apkName;
@@ -151,6 +153,7 @@ public final class ToolkitView extends JTabbedPane {
                 MainWindow.taskView.removeTask(index);
             }
             MainWindow.taskView.addTask(new Apk(apkToolDecompilerOutputDir));
+            MainWindow.consoleView.stopLoadingProgressBar("APK反编译结束");
         });
         ThreadUtil.execAsync(apkToolDecompileTask);
     }

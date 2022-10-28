@@ -36,13 +36,6 @@ public class TabFramePanel extends JPanel implements MouseListener, MouseMotionL
     private JPanel contentPanel = new JPanel(new BorderLayout());
 
     /**
-     * 空参构造，适配一些反射场景使用。可以通过addTabFrameItem来添加选项卡。
-     */
-    public TabFramePanel() {
-        this(new TabFrameItem[]{});
-    }
-
-    /**
      * 根据TabFrameItem来创建TabFrame，每一个Item代表一个功能选项。
      *
      * @param tabFrameItems 需要添加到ToolBar的多个TabFrameItem
@@ -100,6 +93,15 @@ public class TabFramePanel extends JPanel implements MouseListener, MouseMotionL
             updateUI();
         });
         tabFrameBar.addBarItem(itemButton);
+    }
+
+    /**
+     * 获取TabFrameBar
+     *
+     * @return {@link TabFrameBar}
+     */
+    public TabFrameBar getTabFrameBar() {
+        return this.tabFrameBar;
     }
 
     @Override
